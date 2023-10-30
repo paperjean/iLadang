@@ -85,8 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            const MyHomePage(title: 'SawitCare')));
+                        builder: (context) => const MyHomePage()));
                   },
                 ),
               ),
