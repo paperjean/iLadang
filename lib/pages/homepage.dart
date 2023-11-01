@@ -3,7 +3,7 @@ import 'package:sawitcare_app/pages/employee/employee_screen.dart';
 import 'package:sawitcare_app/pages/activity/activity_screen.dart';
 import 'package:sawitcare_app/pages/yield/yield_screen.dart';
 import 'package:sawitcare_app/pages/assets/assets_screen.dart';
-import 'package:sawitcare_app/pages/market/market_screen.dart';
+import 'package:sawitcare_app/pages/profile/profile_screen.dart';
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Activity(),
     Yield(),
     Assets(),
-    Market(),
+    Profile(),
   ];
 
   @override
