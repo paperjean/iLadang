@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/start_page.dart';
-import 'package:sawitcare_app/utils/common.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -185,7 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 _signUpLoading = true;
                               });
                               try {
-                                await client.auth.signUp(
+                                await supabase.auth.signUp(
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 );

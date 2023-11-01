@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sawitcare_app/pages/login.dart';
+import 'package:sawitcare_app/pages/profile/profile_screen.dart';
 import 'package:sawitcare_app/pages/start_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/homepage.dart';
-import 'package:sawitcare_app/utils/common.dart';
-
-final supabase = Supabase.instance.client;
+import 'package:sawitcare_app/pages/splashscreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +16,8 @@ Future<void> main() async {
 
   runApp(const MyApp());
 }
+
+final supabase = Supabase.instance.client;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,41 +31,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyWidget(),
-    );
-  }
-}
-
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  User? _user;
-
-  @override
-  void initState() {
-    _getAuth();
-    super.initState();
-  }
-
-  Future<void> _getAuth() async {
-    setState(() {
-      _user = supabase.auth.currentUser;
-    });
-    client.auth.onAuthStateChange.listen((event) {
-      setState(() {
-        _user = event.session?.user;
-      });
-    });
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _user == null ? const StartPage() : const MyHomePage(),
+      initialRoute: '/',
+      routes: <String, WidgetBuilder>{
+        '/': (_) => const SplashPage(),
+        '/login': (_) => const StartPage(),
+        '/account': (_) => const MyHomePage(),
+      },
     );
   }
 }

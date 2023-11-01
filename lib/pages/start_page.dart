@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/homepage.dart';
-import 'package:sawitcare_app/utils/common.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'register_screen.dart';
 
 class StartPage extends StatefulWidget {
@@ -12,15 +15,31 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> {
   bool _signInLoading = false;
+  bool _redirecting = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late final StreamSubscription<AuthState> _authStateSubscription;
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _authStateSubscription.cancel();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      if (_redirecting) return;
+      final session = data.session;
+      if (session != null) {
+        _redirecting = true;
+        Navigator.of(context).pushReplacementNamed('/account');
+      }
+    });
+    super.initState();
   }
 
   @override
@@ -35,7 +54,7 @@ class _StartPageState extends State<StartPage> {
               const SizedBox(
                 height: 80,
               ),
-              Image.asset('assets/login_2_palm_oil.png'),
+              // Image.asset('assets/login_2_palm_oil.png'),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
@@ -122,7 +141,7 @@ class _StartPageState extends State<StartPage> {
                               _signInLoading = true;
                             });
                             try {
-                              await client.auth.signInWithPassword(
+                              await supabase.auth.signInWithPassword(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               );
