@@ -27,9 +27,42 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Color.fromRGBO(247, 247, 247, 1),
+        primaryColor: const Color.fromRGBO(43, 128, 90, 1),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: const Color.fromRGBO(43, 128, 90, 1),
+            backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
+          ),
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          floatingLabelStyle:
+              TextStyle(color: const Color.fromRGBO(43, 128, 90, 1)),
+          filled: true,
+          fillColor: Colors.white,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromRGBO(43, 128, 90, 1)),
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(15.0),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.2)),
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(15.0),
+            ),
+          ),
+        ),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color.fromRGBO(43, 128, 90, 1),
+        ),
       ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/start_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,10 +15,12 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _signUpLoading = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _passwordControllerVerifier = TextEditingController();
   final _phoneController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false; // Add this line
 
   @override
   void dispose() {
@@ -42,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: const Text(
                       'Sign Up',
                       textAlign: TextAlign.right,
                       style:
@@ -70,14 +74,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                   child: TextFormField(
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Required';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
                     controller: _firstNameController,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.name,
                     decoration: const InputDecoration(
                       labelText: 'First Name',
                       border: OutlineInputBorder(),
@@ -87,14 +91,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                   child: TextFormField(
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Required';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
                     controller: _lastNameController,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.name,
                     decoration: const InputDecoration(
                       labelText: 'Last Name',
                       border: OutlineInputBorder(),
@@ -104,14 +108,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                   child: TextFormField(
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Required';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
                     controller: _phoneController,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                       labelText: 'Phone Number',
                       border: OutlineInputBorder(),
@@ -129,32 +133,61 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                     controller: _passwordController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),
-                      suffixIcon: Icon(
-                        Icons.remove_red_eye_outlined,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
                       ),
                     ),
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
-                //   child: TextFormField(
-                //     keyboardType: TextInputType.emailAddress,
-                //     decoration: const InputDecoration(
-                //       labelText: 'Confirm Password',
-                //       border: OutlineInputBorder(),
-                //       suffixIcon: Icon(
-                //         Icons.remove_red_eye_outlined,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      } else if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                    controller: _passwordControllerVerifier,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    obscureText: !_passwordVisible,
+                  ),
+                ),
                 const SizedBox(height: 16.0),
-
                 _signUpLoading
                     ? const Center(child: const CircularProgressIndicator())
                     : Padding(
@@ -164,9 +197,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           width: 300,
                           child: TextButton(
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.greenAccent[700],
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(15)),
                             ),
                             child: const Text(
                               'Sign Up',
@@ -184,10 +216,31 @@ class _RegisterPageState extends State<RegisterPage> {
                                 _signUpLoading = true;
                               });
                               try {
+                                final isEmailExist = await supabase
+                                    .from('user_profile')
+                                    .select('email')
+                                    .eq('email', _emailController.text)
+                                    .limit(1)
+                                    .maybeSingle();
+
+                                if (isEmailExist != null &&
+                                    isEmailExist['email']
+                                        .toString()
+                                        .isNotEmpty) {
+                                  throw const AuthException(
+                                      'email already exist');
+                                }
+
                                 await supabase.auth.signUp(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                );
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    data: {
+                                      'first_name': _firstNameController.text,
+                                      'last_name': _lastNameController.text,
+                                      'phone': _phoneController.text,
+                                    });
+                                // Now you can use the userId as needed
+
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: const Text(

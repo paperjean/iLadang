@@ -20,6 +20,7 @@ class _StartPageState extends State<StartPage> {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   late final StreamSubscription<AuthState> _authStateSubscription;
+  bool _passwordVisible = false; // Add this line
 
   @override
   void dispose() {
@@ -83,6 +84,7 @@ class _StartPageState extends State<StartPage> {
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
+                    
                   ),
                 ),
               ),
@@ -100,11 +102,21 @@ class _StartPageState extends State<StartPage> {
                     return null;
                   },
                   controller: _passwordController,
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
-                    suffixIcon: Icon(
-                      Icons.remove_red_eye_outlined,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                     ),
                   ),
                   obscureText: true,
@@ -121,7 +133,8 @@ class _StartPageState extends State<StartPage> {
                         width: 300,
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: Colors.greenAccent[700],
+                            backgroundColor:
+                                const Color.fromRGBO(43, 128, 90, 1),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                           ),
@@ -145,6 +158,7 @@ class _StartPageState extends State<StartPage> {
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               );
+
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
