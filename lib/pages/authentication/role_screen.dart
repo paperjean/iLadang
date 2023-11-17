@@ -42,53 +42,96 @@ class _ChooseRolePageState extends State<ChooseRolePage> {
         ),
         Container(
           padding: const EdgeInsets.all(16.0),
-          color: Colors.white,
           alignment: Alignment.center,
-          margin: EdgeInsets.only(top: 500.0),
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(247, 247, 247, 1),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.0),
+              topRight: Radius.circular(40.0),
+            ),
+          ),
+          margin: const EdgeInsets.only(top: 450.0),
           child: Column(
             children: [
-              Text(
-                'Choose Your Role',
+              const Text(
+                'Join as',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
+                    color: Colors.black, // Set the desired text color
+                    fontSize: 25.0, // Set the desired font size
+                    decoration: TextDecoration.none, // Remove underline
+                    fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 5.0),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                child: const Text(
+                  'Welcome to SawitCare !\n  Pick your roles so we can help you get started',
+                  style: TextStyle(
+                      color: Colors.black, // Set the desired text color
+                      fontSize: 14.0, // Set the desired font size
+                      decoration: TextDecoration.none, // Remove underline
+                      fontWeight: FontWeight.normal),
+                  textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(height: 16.0),
-              TextButton(
+              OutlinedButton(
                 onPressed: () {
                   // Handle button1 click
                 },
-                child: Text(
-                  'Role 1',
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                      color:
+                          Color.fromRGBO(43, 128, 90, 1)), // Set border color
+                  backgroundColor: const Color.fromRGBO(230, 252, 242, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  fixedSize: const Size(300, 50),
+                ),
+                child: const Text(
+                  'Plantation Owner',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                  ),
+                      color: Color.fromRGBO(43, 128, 90, 1),
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
+              const SizedBox(height: 5.0),
               TextButton(
                 onPressed: () {
                   // Handle button2 click
                 },
-                child: Text(
-                  'Role 2',
+                style: TextButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  fixedSize: const Size(300, 50),
+                ),
+                child: const Text(
+                  'Manager',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                  ),
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
+              const SizedBox(height: 5.0),
               TextButton(
                 onPressed: () {
                   // Handle button3 click
                 },
-                child: Text(
-                  'Role 3',
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  fixedSize: const Size(300, 50),
+                ),
+                child: const Text(
+                  'Field Employee',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 18.0,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),

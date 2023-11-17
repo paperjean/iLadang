@@ -36,7 +36,7 @@ class _StartPageState extends State<StartPage> {
       final session = data.session;
       if (session != null) {
         _redirecting = true;
-        Navigator.of(context).pushReplacementNamed('/account');
+        Navigator.of(context).pushReplacementNamed('/');
       }
     });
     super.initState();

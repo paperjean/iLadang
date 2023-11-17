@@ -27,41 +27,42 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: Color.fromRGBO(247, 247, 247, 1),
-        primaryColor: const Color.fromRGBO(43, 128, 90, 1),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            foregroundColor: const Color.fromRGBO(43, 128, 90, 1),
-            backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
-          ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
-          ),
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          floatingLabelStyle: TextStyle(color: Color.fromRGBO(43, 128, 90, 1)),
-          filled: true,
-          fillColor: Colors.white,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(43, 128, 90, 1)),
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.0),
+          scaffoldBackgroundColor: Color.fromRGBO(247, 247, 247, 1),
+          primaryColor: const Color.fromRGBO(43, 128, 90, 1),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              foregroundColor: const Color.fromRGBO(43, 128, 90, 1),
+              backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
             ),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.2)),
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.0),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
             ),
           ),
-        ),
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Color.fromRGBO(43, 128, 90, 1),
-        ),
-      ),
+          inputDecorationTheme: const InputDecorationTheme(
+            floatingLabelStyle:
+                TextStyle(color: Color.fromRGBO(43, 128, 90, 1)),
+            filled: true,
+            fillColor: Colors.white,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromRGBO(43, 128, 90, 1)),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.2)),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+          ),
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Color.fromRGBO(43, 128, 90, 1),
+          ),
+          textTheme: TextTheme()),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (_) => const SplashPage(),

@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
           .limit(1);
       print(userRole);
       if ((userRole == null || userRole.isEmpty)) {
-        Navigator.of(context).pushReplacementNamed('/role');
+        Navigator.of(context).pushReplacementNamed('/role');    
       } else {
         Navigator.of(context).pushReplacementNamed('/account');
       }
