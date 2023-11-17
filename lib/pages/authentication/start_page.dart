@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
-import 'package:sawitcare_app/pages/homepage.dart';
+import 'package:sawitcare_app/pages/authentication/role_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'register_screen.dart';
 
@@ -84,7 +83,6 @@ class _StartPageState extends State<StartPage> {
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
-                    
                   ),
                 ),
               ),
@@ -102,7 +100,7 @@ class _StartPageState extends State<StartPage> {
                     return null;
                   },
                   controller: _passwordController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
                     suffixIcon: IconButton(
@@ -158,11 +156,6 @@ class _StartPageState extends State<StartPage> {
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               );
-
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MyHomePage()));
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

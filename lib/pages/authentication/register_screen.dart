@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
-import 'package:sawitcare_app/pages/start_page.dart';
+import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/services.dart';
+
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

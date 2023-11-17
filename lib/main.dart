@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sawitcare_app/pages/login.dart';
-import 'package:sawitcare_app/pages/profile/profile_screen.dart';
-import 'package:sawitcare_app/pages/start_page.dart';
+import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/homepage.dart';
-import 'package:sawitcare_app/pages/splashscreen.dart';
+import 'package:sawitcare_app/pages/authentication/splashscreen.dart';
+import 'package:sawitcare_app/pages/authentication/role_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,20 +42,19 @@ class MyApp extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
-          floatingLabelStyle:
-              TextStyle(color: const Color.fromRGBO(43, 128, 90, 1)),
+          floatingLabelStyle: TextStyle(color: Color.fromRGBO(43, 128, 90, 1)),
           filled: true,
           fillColor: Colors.white,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color.fromRGBO(43, 128, 90, 1)),
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(15.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.2)),
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(15.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
             ),
           ),
         ),
@@ -69,6 +67,7 @@ class MyApp extends StatelessWidget {
         '/': (_) => const SplashPage(),
         '/login': (_) => const StartPage(),
         '/account': (_) => const MyHomePage(),
+        '/role': (_) => const ChooseRolePage()
       },
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'constants.dart';
-import 'package:sawitcare_app/pages/start_page.dart';
+import 'package:sawitcare_app/pages/authentication/start_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
