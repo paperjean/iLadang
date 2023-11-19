@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter/services.dart';
-
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -137,7 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _passwordVisible
@@ -170,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _passwordVisible
@@ -190,7 +188,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 16.0),
                 _signUpLoading
-                    ? const Center(child: const CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: SizedBox(
@@ -289,6 +287,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                     )
                   ],
+                  
                 )
               ],
             ),
@@ -298,4 +297,6 @@ class _RegisterPageState extends State<RegisterPage> {
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  
 }

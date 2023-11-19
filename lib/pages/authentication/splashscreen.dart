@@ -23,14 +23,16 @@ class _SplashPageState extends State<SplashPage> {
 
     final session = supabase.auth.currentSession;
     if (session != null) {
-      final userRole = await supabase
+      final roleResponse = await supabase
           .from('user_profile')
           .select('role')
           .eq('id', supabase.auth.currentUser!.id)
-          .limit(1);
-      print(userRole);
+          .single();
+
+      final userRole = roleResponse.entries.first.value;
+
       if ((userRole == null || userRole.isEmpty)) {
-        Navigator.of(context).pushReplacementNamed('/role');    
+        Navigator.of(context).pushReplacementNamed('/role');
       } else {
         Navigator.of(context).pushReplacementNamed('/account');
       }

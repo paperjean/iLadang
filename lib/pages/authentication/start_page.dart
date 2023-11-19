@@ -63,7 +63,10 @@ class _StartPageState extends State<StartPage> {
                   child: const Text(
                     'Welcome to SawitCare!',
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
                   ),
                 ),
               ),
