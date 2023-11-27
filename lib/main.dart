@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/homepage.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (_) => const SplashPage(),
+        '/pending': (_) => const PendingRegistration(),
         '/login': (_) => const StartPage(),
         '/account': (_) => const MyHomePage(),
         '/role': (_) => const ChooseRolePage()

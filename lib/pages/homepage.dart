@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
-              label: "Report",
+              label: "Employee",
               icon: Icon(Icons.analytics_rounded),
               backgroundColor: primaryColor,
             ),

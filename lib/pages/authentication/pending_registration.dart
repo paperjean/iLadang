@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sawitcare_app/main.dart';
-import 'package:sawitcare_app/pages/authentication/manager_registration.dart';
-import 'package:sawitcare_app/pages/authentication/plantation_registration.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
+import 'package:sawitcare_app/pages/homepage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ChooseRolePage extends StatefulWidget {
-  const ChooseRolePage({super.key});
+class PendingRegistration extends StatefulWidget {
+  const PendingRegistration({super.key});
 
   @override
-  State<ChooseRolePage> createState() => _ChooseRolePageState();
+  State<PendingRegistration> createState() => _PendingRegistrationState();
 }
 
-class _ChooseRolePageState extends State<ChooseRolePage> {
+class _PendingRegistrationState extends State<PendingRegistration> {
+  bool _cancelLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Create the background image
           Container(
             decoration: const BoxDecoration(
               color: Colors.transparent,
@@ -55,16 +56,16 @@ class _ChooseRolePageState extends State<ChooseRolePage> {
                 topRight: Radius.circular(40.0),
               ),
             ),
-            margin: const EdgeInsets.only(top: 450.0),
+            margin: const EdgeInsets.only(top: 500.0),
             child: Column(
               children: [
                 const SizedBox(
                   height: 16.0,
                 ),
                 const Text(
-                  'Join as',
+                  'Request Sent',
                   style: TextStyle(
-                      color: Colors.black, // Set the desired text color
+                      color: Colors.black, // Set the desired text colorDWA
                       fontSize: 25.0, // Set the desired font size
                       decoration: TextDecoration.none, // Remove underline
                       fontWeight: FontWeight.w700),
@@ -74,7 +75,7 @@ class _ChooseRolePageState extends State<ChooseRolePage> {
                   margin: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 10.0),
                   child: const Text(
-                    'Welcome to SawitCare !\n  Pick your roles so we can help you get started',
+                    'Waiting for the plantation manager to respond',
                     style: TextStyle(
                         color: Colors.black, // Set the desired text color
                         fontSize: 14.0, // Set the desired font size
@@ -83,75 +84,60 @@ class _ChooseRolePageState extends State<ChooseRolePage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => const PlantationRegistration()),
-                    );
+                // Textfield
+                const SizedBox(height: 10.0),
+                TextButton(
+                  onPressed: () async {
+                    setState(() {
+                      _cancelLoading = true;
+                    });
+                    try {
+                      await supabase
+                          .from('request')
+                          .delete()
+                          .eq('requester_id', supabase.auth.currentUser!.id);
+
+                      await supabase.from('user_profile').update({
+                        'role': null,
+                      }).eq('id', supabase.auth.currentUser!.id.toString());
+
+                      Navigator.of(context).pushReplacementNamed('/role');
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text(
+                              'Your request have succesfully been canceled'),
+                          backgroundColor: Colors.yellow[700],
+                        ),
+                      );
+                    } catch (e) {
+                      print(e);
+                      SnackBar(
+                        content: Text('Cancel Request Failed'),
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                      );
+                    }
+
+                    setState(() {
+                      _cancelLoading = false;
+                    });
                   },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(
-                      color: Color.fromRGBO(43, 128, 90, 1),
+                      color: Color.fromRGBO(201, 53, 59, 1),
                       width: 0.5,
                     ), // Set border color
-                    backgroundColor: const Color.fromRGBO(230, 252, 242, 1),
+                    backgroundColor: const Color.fromRGBO(255, 248, 248, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     fixedSize: const Size(300, 50),
                   ),
                   child: const Text(
-                    'Plantation Owner',
+                    'Cancel Request',
                     style: TextStyle(
-                        color: Color.fromRGBO(43, 128, 90, 1),
+                        color: Color.fromRGBO(201, 53, 59, 1),
                         fontSize: 18.0,
                         fontWeight: FontWeight.w700),
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => const ManagerRegistration()),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    fixedSize: const Size(300, 50),
-                  ),
-                  child: const Text(
-                    'Manager',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => const ManagerRegistration()),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(45, 45, 45, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    fixedSize: const Size(300, 50),
-                  ),
-                  child: const Text(
-                    'Field Employee',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w700,
-                    ),
                   ),
                 ),
               ],

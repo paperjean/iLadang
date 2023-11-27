@@ -25,17 +25,41 @@ class _SplashPageState extends State<SplashPage> {
     if (session != null) {
       final roleResponse = await supabase
           .from('user_profile')
-          .select('role')
+          .select()
           .eq('id', supabase.auth.currentUser!.id)
           .single();
 
-      final userRole = roleResponse.entries.first.value;
+      final userRole = roleResponse['role'];
+      print(userRole);
+
+      switch (userRole) {
+        case 'owner':
+          print('You have administrative privileges.');
+          Navigator.of(context).pushReplacementNamed('/account');
+          break;
+        case 'manager':
+          print('You have regular user privileges.');
+          Navigator.of(context).pushReplacementNamed('/account');
+          break;
+        case 'pending_manager':
+          print('You have guest privileges.');
+          Navigator.of(context).pushReplacementNamed('/pending');
+          break;
+        case 'employee':
+          print('You have regular user privileges.');
+          Navigator.of(context).pushReplacementNamed('/account');
+          break;
+        case 'pending_employee':
+          print('You have guest privileges.');
+          Navigator.of(context).pushReplacementNamed('/pending');
+          break;
+        default:
+          Navigator.of(context)
+              .pushReplacementNamed('/role'); // Handle invalid roles here
+      }
 
       if ((userRole == null || userRole.isEmpty)) {
-        Navigator.of(context).pushReplacementNamed('/role');
-      } else {
-        Navigator.of(context).pushReplacementNamed('/account');
-      }
+      } else {}
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }
