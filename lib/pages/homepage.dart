@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sawitcare_app/pages/employee/employee_screen.dart';
+import 'package:sawitcare_app/pages/tree/tree_screen.dart';
 import 'package:sawitcare_app/pages/activity/activity_screen.dart';
 import 'package:sawitcare_app/pages/yield/yield_screen.dart';
-import 'package:sawitcare_app/pages/assets/assets_screen.dart';
+import 'package:sawitcare_app/pages/employee/employee_screen.dart';
 import 'package:sawitcare_app/pages/profile/profile_screen.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -19,10 +20,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentIndex = 2;
 
   final screen = [
-    Employee(),
+    Tree(),
     Activity(),
     Yield(),
-    Assets(),
+    Employee(),
     Profile(),
   ];
 
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
-              label: "Activtiy",
+              label: "Tree",
               icon: Icon(Icons.list_alt_rounded),
               backgroundColor: primaryColor,
             ),
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             BottomNavigationBarItem(
               label: "Employee",
-              icon: Icon(Icons.analytics_rounded),
+              icon: Icon(Icons.people),
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
