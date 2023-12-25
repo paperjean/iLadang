@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:sawitcare_app/pages/yield/bar_data.dart';
+import 'package:sawitcare_app/pages/management/yield/bar_data.dart';
 
 class MyBarGraph extends StatelessWidget {
   final List monthlySummary;

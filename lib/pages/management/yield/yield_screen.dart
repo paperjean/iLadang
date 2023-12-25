@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/cardwidget.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/price_card.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/delivery_record.dart';
-import 'package:sawitcare_app/pages/yield/bar_graph.dart';
+import 'package:sawitcare_app/pages/management/yield/bar_graph.dart';
 
 class Yield extends StatefulWidget {
   const Yield({super.key});

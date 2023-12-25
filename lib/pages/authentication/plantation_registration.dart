@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
-import 'package:sawitcare_app/pages/homepage.dart';
+import 'package:sawitcare_app/pages/management/homepage_management.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PlantationRegistration extends StatefulWidget {

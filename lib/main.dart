@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
+import 'package:sawitcare_app/pages/field/homepage_field.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:sawitcare_app/pages/homepage.dart';
+import 'package:sawitcare_app/pages/management/homepage_management.dart';
 import 'package:sawitcare_app/pages/authentication/splashscreen.dart';
 import 'package:sawitcare_app/pages/authentication/role_screen.dart';
 
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         '/pending': (_) => const PendingRegistration(),
         '/login': (_) => const StartPage(),
         '/account': (_) => const MyHomePage(),
+        '/employee': (_) => const MyEmployeeHomePage(),
         '/role': (_) => const ChooseRolePage()
       },
     );

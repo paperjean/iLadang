@@ -31,7 +31,6 @@ class _SplashPageState extends State<SplashPage> {
 
       final userRole = roleResponse['role'];
       print(userRole);
-
       switch (userRole) {
         case 'owner':
           print('You have administrative privileges.');
@@ -47,7 +46,7 @@ class _SplashPageState extends State<SplashPage> {
           break;
         case 'employee':
           print('You have regular user privileges.');
-          Navigator.of(context).pushReplacementNamed('/account');
+          Navigator.of(context).pushReplacementNamed('/employee');
           break;
         case 'pending_employee':
           print('You have guest privileges.');

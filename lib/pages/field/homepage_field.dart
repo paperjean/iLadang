@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:sawitcare_app/pages/tree/tree_screen.dart';
-import 'package:sawitcare_app/pages/activity/activity_screen.dart';
-import 'package:sawitcare_app/pages/yield/yield_screen.dart';
-import 'package:sawitcare_app/pages/employee/employee_screen.dart';
+import 'package:sawitcare_app/pages/field/menu/menu_screen.dart';
+import 'package:sawitcare_app/pages/management/activity/activity_screen.dart';
+import 'package:sawitcare_app/pages/management/yield/yield_screen.dart';
 import 'package:sawitcare_app/pages/profile/profile_screen.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MyEmployeeHomePage extends StatefulWidget {
+  const MyEmployeeHomePage({super.key});
 
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyEmployeeHomePage> createState() => _MyEmployeeHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyEmployeeHomePageState extends State<MyEmployeeHomePage> {
   final primaryColor = const Color(0xFF1E1E1E);
   final secondaryColor = const Color.fromRGBO(99, 201, 142, 1);
   final accentColor = const Color(0xffffffff);
   final backgroundColor = const Color(0xffffffff);
   final errorColor = const Color(0xffEF4444);
-  int currentIndex = 2;
+  int currentIndex = 1;
 
   final screen = [
-    Tree(),
     Activity(),
-    Yield(),
-    Employee(),
+    Menu(),
     Profile(),
   ];
 
@@ -47,23 +44,13 @@ class _MyHomePageState extends State<MyHomePage> {
           //Item List
           items: [
             BottomNavigationBarItem(
-              label: "Employee",
-              icon: Icon(Icons.people),
-              backgroundColor: primaryColor,
-            ),
-            BottomNavigationBarItem(
-              label: "Tree",
+              label: "Activities",
               icon: Icon(Icons.list_alt_rounded),
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
-              label: "Yield",
+              label: "Menu",
               icon: Icon(Icons.bar_chart_rounded),
-              backgroundColor: primaryColor,
-            ),
-            BottomNavigationBarItem(
-              label: "Employee",
-              icon: Icon(Icons.people),
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(

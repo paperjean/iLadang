@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
+import 'package:sawitcare_app/pages/authentication/employee_registration.dart';
 import 'package:sawitcare_app/pages/authentication/manager_registration.dart';
 import 'package:sawitcare_app/pages/authentication/plantation_registration.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
@@ -136,7 +137,7 @@ class _ChooseRolePageState extends State<ChooseRolePage> {
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => const ManagerRegistration()),
+                          builder: (context) => const EmployeeRegistration()),
                     );
                   },
                   style: TextButton.styleFrom(
