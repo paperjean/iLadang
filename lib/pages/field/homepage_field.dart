@@ -50,7 +50,7 @@ class _MyEmployeeHomePageState extends State<MyEmployeeHomePage> {
             ),
             BottomNavigationBarItem(
               label: "Menu",
-              icon: Icon(Icons.bar_chart_rounded),
+              icon: Icon(Icons.view_module),
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
