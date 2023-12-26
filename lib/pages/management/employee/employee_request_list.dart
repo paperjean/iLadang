@@ -29,6 +29,15 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
             child: AppBar(
               backgroundColor: Color.fromARGB(255, 47, 47, 47),
               elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
               centerTitle: true,
               title: Text(
                 'Requests',
@@ -71,7 +80,7 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
                                   ? 'Manager'
                                   : _requestList?[index]?['role'] ==
                                           'pending_employee'
-                                      ? 'EmployeeRequest'
+                                      ? 'Employee'
                                       : _requestList?[index]?['role'] ??
                                           'Unknown',
                               style:
@@ -193,7 +202,6 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextButton(
                                   onPressed: () {
-                                    // Dialog
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -382,17 +390,12 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
           .update({'request_status': 'rejected'}).eq('request_id', requestId);
 
       // Update User to have role of employee or manager
-      if (roleRequested == 'pending_employee') {
-        final response2 = await supabase
-            .from('user_profile')
-            .update({'role': 'rejected_employee'}).eq('id', requesterId);
-      } else {
-        final response2 = await supabase
-            .from('user_profile')
-            .update({'role': 'rejected_manager'}).eq('id', requesterId);
-      }
-
+      final response2 = await supabase
+          .from('user_profile')
+          .update({'role': 'declined'}).eq('id', requesterId);
       print(response);
+
+      await _fetchRequests(); // Fetch fresh data after updating
     } catch (e) {
       print(e);
     }

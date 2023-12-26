@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 import 'package:sawitcare_app/main.dart';
 
 Future<bool> isOwner(String CurrentId) async {

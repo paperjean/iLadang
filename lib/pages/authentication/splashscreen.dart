@@ -52,6 +52,14 @@ class _SplashPageState extends State<SplashPage> {
           print('You have guest privileges.');
           Navigator.of(context).pushReplacementNamed('/pending');
           break;
+        case 'declined':
+          print('You have guest privileges.');
+          Navigator.of(context).pushReplacementNamed('/declined');
+          break;
+        case 'removed':
+          print('You have guest privileges.');
+          Navigator.of(context).pushReplacementNamed('/removed');
+          break;
         default:
           Navigator.of(context)
               .pushReplacementNamed('/role'); // Handle invalid roles here

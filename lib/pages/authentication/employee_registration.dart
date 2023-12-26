@@ -200,6 +200,19 @@ class _EmployeeRegistrationState extends State<EmployeeRegistration> {
               elevation: 0,
             ),
           ),
+          Positioned(
+            top: 50.0,
+            left: 30.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/role');
+              },
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              child: const Icon(Icons.arrow_back_ios_new_rounded,
+                  color: Colors.white),
+            ),
+          ),
         ],
       ),
     );
