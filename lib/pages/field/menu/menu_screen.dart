@@ -17,20 +17,13 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 47, 47, 47),
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: AppBar(
-              backgroundColor: Color.fromARGB(255, 47, 47, 47),
               elevation: 0,
               centerTitle: true,
               title: const Text(
                 'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
             )),
         body: Column(

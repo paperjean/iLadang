@@ -47,7 +47,10 @@ class MyBarGraph extends StatelessWidget {
             (data) => BarChartGroupData(
               x: data.x,
               barRods: [
-                BarChartRodData(toY: data.y, color: Colors.green, width: 20)
+                BarChartRodData(
+                    toY: data.y,
+                    color: const Color.fromRGBO(43, 128, 90, 1),
+                    width: 20)
               ],
             ),
           )
@@ -58,8 +61,7 @@ class MyBarGraph extends StatelessWidget {
 
 Widget getBottomTitles(double value, TitleMeta meta) {
   const style = TextStyle(
-    fontWeight: FontWeight.bold,
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 10,
   );
 

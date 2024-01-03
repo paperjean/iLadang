@@ -23,11 +23,9 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 47, 47, 47),
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: AppBar(
-              backgroundColor: Color.fromARGB(255, 47, 47, 47),
               elevation: 0,
               leading: IconButton(
                 icon: Icon(
@@ -39,7 +37,7 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
                 },
               ),
               centerTitle: true,
-              title: Text(
+              title: const Text(
                 'Requests',
                 style: TextStyle(
                   color: Colors.white,
@@ -50,7 +48,7 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
               actions: [],
             )),
         body: _isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(

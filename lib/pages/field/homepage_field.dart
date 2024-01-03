@@ -11,17 +11,17 @@ class MyEmployeeHomePage extends StatefulWidget {
 }
 
 class _MyEmployeeHomePageState extends State<MyEmployeeHomePage> {
-  final primaryColor = const Color(0xFF1E1E1E);
-  final secondaryColor = const Color.fromRGBO(99, 201, 142, 1);
+  final primaryColor = const Color.fromRGBO(248, 249, 250, 1);
+  final secondaryColor = const Color.fromRGBO(43, 128, 90, 1);
   final accentColor = const Color(0xffffffff);
   final backgroundColor = const Color(0xffffffff);
   final errorColor = const Color(0xffEF4444);
   int currentIndex = 1;
 
   final screen = [
-    Activity(),
-    Menu(),
-    Profile(),
+    const Activity(),
+    const Menu(),
+    const Profile(),
   ];
 
   @override
@@ -30,11 +30,10 @@ class _MyEmployeeHomePageState extends State<MyEmployeeHomePage> {
       bottomNavigationBar: SizedBox(
         height: 110,
         child: BottomNavigationBar(
-          //Item Selection
           type: BottomNavigationBarType.fixed,
-          backgroundColor: primaryColor,
-          selectedItemColor: secondaryColor,
-          unselectedItemColor: Colors.grey,
+          backgroundColor: secondaryColor,
+          selectedItemColor: const Color.fromARGB(255, 182, 255, 185),
+          unselectedItemColor: Colors.white,
           currentIndex: currentIndex,
           onTap: (index) {
             setState(() {

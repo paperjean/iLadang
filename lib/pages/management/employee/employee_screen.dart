@@ -27,25 +27,17 @@ class _EmployeeState extends State<Employee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 47, 47, 47),
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: AppBar(
-              backgroundColor: Color.fromARGB(255, 47, 47, 47),
               elevation: 0,
               centerTitle: true,
               title: const Text(
                 'Employee',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.person_add_alt_1,
-                      color: Colors.white,
                       size: 30), // Replace with your desired icon
                   onPressed: () {
                     Navigator.push(
@@ -181,7 +173,6 @@ class _EmployeeState extends State<Employee> {
                                           setState(() {
                                             _employeeList!.removeAt(index);
                                           });
-
                                         },
                                         child: const Text(
                                           'Remove',

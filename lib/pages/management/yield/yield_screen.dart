@@ -30,25 +30,18 @@ class _YieldState extends State<Yield> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 47, 47, 47),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            backgroundColor: Color.fromARGB(255, 47, 47, 47),
             elevation: 0,
             centerTitle: false,
-            title: Center(
+            title: const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Yield',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                 ],
               ),
