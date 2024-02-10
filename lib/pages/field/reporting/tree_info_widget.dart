@@ -28,14 +28,10 @@ class TreeInfoCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.05),
-            offset: Offset(0, 10),
-            blurRadius: 0,
-            spreadRadius: 0,
-          )
-        ],
+        border: Border.all(
+          color: Color.fromRGBO(226, 232, 240, 1),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +46,7 @@ class TreeInfoCard extends StatelessWidget {
                   "Tree",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 26,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/pages/field/menu/menu_screen.dart';
-import 'package:sawitcare_app/pages/management/activity/activity_screen.dart';
+import 'package:sawitcare_app/pages/activity/activity_screen.dart';
 import 'package:sawitcare_app/pages/management/yield/yield_screen.dart';
 import 'package:sawitcare_app/pages/profile/profile_screen.dart';
 
