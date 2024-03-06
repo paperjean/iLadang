@@ -20,8 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentIndex = 2;
 
   final screen = [
-    Tree(),
     Activity(),
+    Tree(),
     Yield(),
     Employee(),
     Profile(),
@@ -47,13 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
           //Item List
           items: [
             BottomNavigationBarItem(
-              label: "Employee",
-              icon: Icon(Icons.people),
+              label: "Activity",
+              icon: Icon(Icons.list_alt_rounded),
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
               label: "Tree",
-              icon: Icon(Icons.list_alt_rounded),
+              icon: Icon(Icons.forest_rounded),
               backgroundColor: primaryColor,
             ),
             BottomNavigationBarItem(
