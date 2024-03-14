@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:sawitcare_app/services/tree.dart';
 
 class Tree extends StatefulWidget {
   const Tree({super.key});
@@ -18,6 +19,7 @@ class _TreeState extends State<Tree> {
   static const LatLng _pApplePark = LatLng(37.334606, -122.009102);
   LatLng? _currentP = null;
   final Map<String, Marker> _markers = {};
+  List<Map<String, dynamic>> _treeMapping = [];
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
@@ -27,8 +29,9 @@ class _TreeState extends State<Tree> {
   @override
   void initState() {
     // TODO: implement initState
-    _generateMarkers();
     super.initState();
+    _fetchTreeMapping();
+
     getLocationUpdates();
   }
 
@@ -38,6 +41,7 @@ class _TreeState extends State<Tree> {
         appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 60),
           child: AppBar(
+            centerTitle: true,
             elevation: 0,
             title: const Text(
               "Tree",
@@ -139,37 +143,53 @@ class _TreeState extends State<Tree> {
   }
 
   _generateMarkers() async {
-    for (int i = 0; i < data.length; i++) {
+    for (int i = 0; i < _treeMapping.length; i++) {
       BitmapDescriptor markerIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(
           size: Size(10, 10),
         ),
-        data[i]['assetPath'],
+        'assets/tree_marker_green.png',
       );
       _markers[i.toString()] = Marker(
           markerId: MarkerId(i.toString()),
-          position: data[i]['position'],
+          position:
+              LatLng(_treeMapping[i]['latitude'], _treeMapping[i]['longitude']),
           icon: markerIcon,
-          infoWindow: InfoWindow(title: 'This is a tree'));
+          infoWindow: InfoWindow(
+              title:
+                  'Tree ${_treeMapping[i]['block']}${_treeMapping[i]['tree_number']}'));
       setState(() {});
+    }
+  }
+
+  Future<void> _fetchTreeMapping() async {
+    try {
+      final data = await fetchTreeMapping(); // Call the service function
+      setState(() {
+        _treeMapping = data ?? []; // Assign fetched data to _treeList
+      });
+      print(_treeMapping);
+      _generateMarkers();
+    } catch (e) {
+      print(e);
     }
   }
 }
 
-List<Map<String, dynamic>> data = [
-  {
-    'id': '1',
-    'position': LatLng(5.098148982414278, 118.43477932281274),
-    'assetPath': 'assets/tree_marker_green.png'
-  },
-  {
-    'id': '2',
-    'position': LatLng(5.098148982414278, 118.43487932281274),
-    'assetPath': 'assets/tree_marker_grey.png'
-  },
-  {
-    'id': '3',
-    'position': LatLng(5.098148982414278, 118.43497932281274),
-    'assetPath': 'assets/tree_marker_yellow.png'
-  },
-];
+// List<Map<String, dynamic>> _treeMapping = [
+//   {
+//     'id': '1',
+//     'position': LatLng(5.098148982414278, 118.43477932281274),
+//     'assetPath': 'assets/tree_marker_green.png'
+//   },
+//   {
+//     'id': '2',
+//     'position': LatLng(5.098148982414278, 118.43487932281274),
+//     'assetPath': 'assets/tree_marker_grey.png'
+//   },
+//   {
+//     'id': '3',
+//     'position': LatLng(5.098148982414278, 118.43497932281274),
+//     'assetPath': 'assets/tree_marker_yellow.png'
+//   },
+// ];
