@@ -46,8 +46,10 @@ class _TreeState extends State<Tree> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.add_box_rounded),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/treelist');
+                  },
+                  icon: const Icon(Icons.list_alt_rounded),
                 ),
               ),
             ],

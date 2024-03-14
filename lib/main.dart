@@ -4,10 +4,12 @@ import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/removed.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:sawitcare_app/pages/field/homepage_field.dart';
+import 'package:sawitcare_app/pages/management/tree/tree_list.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/management/homepage_management.dart';
 import 'package:sawitcare_app/pages/authentication/splashscreen.dart';
 import 'package:sawitcare_app/pages/authentication/role_screen.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,6 +86,7 @@ class MyApp extends StatelessWidget {
         '/role': (_) => const ChooseRolePage(),
         '/removed': (_) => const RemovedPage(),
         '/declined': (_) => const DeclinedPage(),
+        '/treelist': (_) => const TreeList(),
       },
     );
   }
