@@ -16,8 +16,7 @@ class Tree extends StatefulWidget {
 class _TreeState extends State<Tree> {
   Location _locationController = new Location();
   static const LatLng _pTree = LatLng(5.098148982414278, 118.43477932281274);
-  static const LatLng _pApplePark = LatLng(37.334606, -122.009102);
-  LatLng? _currentP = null;
+  LatLng? _currentP;
   final Map<String, Marker> _markers = {};
   List<Map<String, dynamic>> _treeMapping = [];
 
@@ -175,21 +174,3 @@ class _TreeState extends State<Tree> {
     }
   }
 }
-
-// List<Map<String, dynamic>> _treeMapping = [
-//   {
-//     'id': '1',
-//     'position': LatLng(5.098148982414278, 118.43477932281274),
-//     'assetPath': 'assets/tree_marker_green.png'
-//   },
-//   {
-//     'id': '2',
-//     'position': LatLng(5.098148982414278, 118.43487932281274),
-//     'assetPath': 'assets/tree_marker_grey.png'
-//   },
-//   {
-//     'id': '3',
-//     'position': LatLng(5.098148982414278, 118.43497932281274),
-//     'assetPath': 'assets/tree_marker_yellow.png'
-//   },
-// ];

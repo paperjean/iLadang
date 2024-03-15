@@ -4,6 +4,7 @@ import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/removed.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:sawitcare_app/pages/field/homepage_field.dart';
+import 'package:sawitcare_app/pages/management/tree/tree_add.dart';
 import 'package:sawitcare_app/pages/management/tree/tree_list.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/management/homepage_management.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
         '/removed': (_) => const RemovedPage(),
         '/declined': (_) => const DeclinedPage(),
         '/treelist': (_) => const TreeList(),
+        '/treeadd': (_) => const TreeAddPage(),
       },
     );
   }

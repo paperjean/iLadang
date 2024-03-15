@@ -28,6 +28,7 @@ class _TreeListState extends State<TreeList> {
         preferredSize: const Size(double.infinity, 60),
         child: AppBar(
           elevation: 0,
+          centerTitle: true,
           title: const Text(
             "Tree List",
           ),
@@ -35,8 +36,10 @@ class _TreeListState extends State<TreeList> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add_box_rounded),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/treeadd');
+                },
+                icon: const Icon(Icons.add_circle),
               ),
             ),
           ],
