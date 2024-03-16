@@ -132,7 +132,9 @@ class _TreeState extends State<Tree> {
     final LocationData currentLocation =
         await _locationController.getLocation();
 
-    if (currentLocation.latitude != null && currentLocation.longitude != null) {
+    if (currentLocation.latitude != null &&
+        currentLocation.longitude != null &&
+        mounted) {
       setState(() {
         _currentP =
             LatLng(currentLocation.latitude!, currentLocation.longitude!);
@@ -164,9 +166,11 @@ class _TreeState extends State<Tree> {
   Future<void> _fetchTreeMapping() async {
     try {
       final data = await fetchTreeMapping(); // Call the service function
-      setState(() {
-        _treeMapping = data ?? []; // Assign fetched data to _treeList
-      });
+      if (mounted) {
+        setState(() {
+          _treeMapping = data ?? []; // Assign fetched data to _treeList
+        });
+      }
       print(_treeMapping);
       _generateMarkers();
     } catch (e) {
