@@ -4,9 +4,26 @@ import 'package:sawitcare_app/pages/activity/activity_info_card.dart';
 import 'package:sawitcare_app/pages/activity/activity_list.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/promo_card.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/horizontal_card.dart';
+import 'package:sawitcare_app/services/activity.dart';
 
-class Activity extends StatelessWidget {
+class Activity extends StatefulWidget {
   const Activity({super.key});
+
+  @override
+  State<Activity> createState() => _ActivityState();
+}
+
+class _ActivityState extends State<Activity> {
+  List? _activityList;
+  int harvestCount = 0;
+  int pruneCount = 0;
+  int fertilizeCount = 0;
+
+  @override
+  void initState() {
+    _fetchActivityList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +50,13 @@ class Activity extends StatelessWidget {
         child: Center(
             child: Column(
           children: [
-            ActivitySummaryCard(treeName: "20"),
+            ActivitySummaryCard(
+              // Past activities count with type : harvesting
+              harvested: harvestCount,
+              fertilized: fertilizeCount,
+              pruned: pruneCount,
+              overall: harvestCount + fertilizeCount + pruneCount,
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
@@ -85,12 +108,39 @@ class Activity extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Line
-            ActivityList()
+            ActivityList(activityList: _activityList),
           ],
         )),
       ),
     );
+  }
+
+  Future<void> _fetchActivityList() async {
+    try {
+      final data = await fetchActivityList(); // Call the service function
+      if (mounted) {
+        setState(() {
+          _activityList = data ?? []; // Assign fetched data to _treeList
+        });
+      }
+
+      if (_activityList != null) {
+        for (var activity in _activityList!) {
+          if (activity['type'] == 'harvesting') {
+            harvestCount++;
+          }
+          if (activity['type'] == 'pruning') {
+            pruneCount++;
+          }
+          if (activity['type'] == 'fertilizing') {
+            fertilizeCount++;
+          }
+        }
+      }
+
+      print(_activityList);
+    } catch (e) {
+      print(e);
+    }
   }
 }

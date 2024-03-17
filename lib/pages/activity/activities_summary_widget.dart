@@ -1,13 +1,21 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class ActivitySummaryCard extends StatelessWidget {
-  final String treeName;
+  final int harvested;
+  final int fertilized;
+  final int pruned;
+  final int? overall;
   final String body;
 
   final Widget subIcon;
 
   const ActivitySummaryCard(
-      {required this.treeName,
+      {required this.harvested,
+      required this.fertilized,
+      required this.pruned,
+      required this.overall,
       this.body =
           """Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudi conseqr!""",
       this.subIcon = const CircleAvatar(
@@ -39,7 +47,7 @@ class ActivitySummaryCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Text(
                   "Latest Summary",
@@ -102,7 +110,7 @@ class ActivitySummaryCard extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              treeName,
+                              harvested.toString(),
                               style: const TextStyle(
                                   color: Color.fromRGBO(105, 109, 110, 1),
                                   fontSize: 20,
@@ -142,7 +150,7 @@ class ActivitySummaryCard extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              treeName,
+                              fertilized.toString(),
                               style: const TextStyle(
                                   color: Color.fromRGBO(105, 109, 110, 1),
                                   fontSize: 20,
@@ -181,7 +189,7 @@ class ActivitySummaryCard extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              treeName,
+                              pruned.toString(),
                               style: const TextStyle(
                                   color: Color.fromRGBO(105, 109, 110, 1),
                                   fontSize: 20,
@@ -221,7 +229,7 @@ class ActivitySummaryCard extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              treeName,
+                              overall.toString(),
                               style: const TextStyle(
                                   color: Color.fromRGBO(105, 109, 110, 1),
                                   fontSize: 20,
@@ -236,7 +244,7 @@ class ActivitySummaryCard extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Text(
-                      "Sprayed",
+                      "Overall",
                       style: TextStyle(fontSize: 15),
                     ),
                   ),

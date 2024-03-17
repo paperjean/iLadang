@@ -4,22 +4,16 @@ import 'package:sawitcare_app/pages/activity/activity_info_card.dart';
 import 'package:sawitcare_app/services/activity.dart';
 
 class ActivityList extends StatefulWidget {
-  const ActivityList({super.key});
+  final List? _activityList;
+  const ActivityList({Key? key, List? activityList})
+      : _activityList = activityList,
+        super(key: key);
 
   @override
   State<ActivityList> createState() => _ActivityListState();
 }
 
 class _ActivityListState extends State<ActivityList> {
-  List? _activityList;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _fetchActivityList();
-  }
-
   // Method to get the formatted date string
   String getFormattedDate(String dateString) {
     DateTime activityDate = DateTime.parse(dateString);
@@ -68,7 +62,7 @@ class _ActivityListState extends State<ActivityList> {
               child: Row(
                 children: [
                   Text(
-                    '${_activityList?[index]?['first_name']} ${_activityList?[index]?['type'] == 'harvesting' ? 'harvested' : (_activityList?[index]?['type'] == 'pruning' ? 'pruned' : 'fertilized')} Tree ${_activityList?[index]?['block']}${_activityList?[index]?['tree_number']}',
+                    '${widget._activityList?[index]?['first_name']} ${widget._activityList?[index]?['type'] == 'harvesting' ? 'harvested' : (widget._activityList?[index]?['type'] == 'pruning' ? 'pruned' : 'fertilized')} Tree ${widget._activityList?[index]?['block']}${widget._activityList?[index]?['tree_number']}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey,
@@ -78,8 +72,8 @@ class _ActivityListState extends State<ActivityList> {
                   ),
                   Spacer(),
                   Text(
-                    DateFormat('h:mm a').format(
-                        DateTime.parse(_activityList?[index]?['created_at'])),
+                    DateFormat('h:mm a').format(DateTime.parse(
+                        widget._activityList?[index]?['created_at'])),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.grey,
@@ -94,7 +88,8 @@ class _ActivityListState extends State<ActivityList> {
                         fontSize: 12),
                   ),
                   Text(
-                    getFormattedDate(_activityList?[index]?['created_at']),
+                    getFormattedDate(
+                        widget._activityList?[index]?['created_at']),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.grey,
@@ -106,22 +101,8 @@ class _ActivityListState extends State<ActivityList> {
             ),
           );
         },
-        itemCount: _activityList?.length ?? 0,
+        itemCount: widget._activityList?.length ?? 0,
       ),
     );
-  }
-
-  Future<void> _fetchActivityList() async {
-    try {
-      final data = await fetchActivityList(); // Call the service function
-      if (mounted) {
-        setState(() {
-          _activityList = data ?? []; // Assign fetched data to _treeList
-        });
-      }
-      print(_activityList);
-    } catch (e) {
-      print(e);
-    }
   }
 }
