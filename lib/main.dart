@@ -4,19 +4,16 @@ import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/removed.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:sawitcare_app/pages/field/homepage_field.dart';
-import 'package:sawitcare_app/pages/management/tree/tree_add.dart';
-import 'package:sawitcare_app/pages/management/tree/tree_list.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/management/homepage_management.dart';
 import 'package:sawitcare_app/pages/authentication/splashscreen.dart';
 import 'package:sawitcare_app/pages/authentication/role_screen.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://ssvarfvhyhkzchcawzci.supabase.co',
-    anonKey: 
+    anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzdmFyZnZoeWhremNoY2F3emNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTg1NzM5NzEsImV4cCI6MjAxNDE0OTk3MX0.okvg3vcjvy9FdkDR3NxvA1kY6T_veouxGy98en8s02U',
   );
 
@@ -87,8 +84,6 @@ class MyApp extends StatelessWidget {
         '/role': (_) => const ChooseRolePage(),
         '/removed': (_) => const RemovedPage(),
         '/declined': (_) => const DeclinedPage(),
-        '/treelist': (_) => const TreeList(),
-        '/treeadd': (_) => const TreeAddPage(),
       },
     );
   }

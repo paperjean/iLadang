@@ -5,13 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/services/user_validation.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TreeConfirmDetailsPage extends StatefulWidget {
   final LatLng treeLocation;
+  final List? treeList;
 
   // Required Parameters
-  const TreeConfirmDetailsPage({required this.treeLocation, Key? key})
+  const TreeConfirmDetailsPage(
+      {required this.treeLocation, this.treeList, Key? key})
       : super(key: key);
 
   @override
@@ -159,7 +160,12 @@ class _TreeConfirmDetailsPageState extends State<TreeConfirmDetailsPage> {
                     'plantation_id': await getUserPlantationId(
                         supabase.auth.currentUser!.id),
                   });
-                  Navigator.pop(context);
+
+
+                  // Redirect to TreeAddPage with Latest Tree List
+                  Navigator.pop(context, true
+                    
+                  );
                   // Navigator.pushNamed(context, '/treelist');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sawitcare_app/main.dart';
+import 'package:sawitcare_app/pages/management/tree/tree_add.dart';
 import 'package:sawitcare_app/pages/management/tree/tree_list_widget.dart';
 import 'package:sawitcare_app/pages/management/tree/tree_screen.dart';
 import 'package:sawitcare_app/services/tree.dart';
 
 class TreeList extends StatefulWidget {
-  const TreeList({super.key});
+  final List? treeList;
+
+  const TreeList({
+    Key? key,
+    required this.treeList,
+  }) : super(key: key);
 
   @override
   State<TreeList> createState() => _TreeListState();
@@ -44,7 +50,13 @@ class _TreeListState extends State<TreeList> {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/treeadd');
+                  // Navigator.pushNamed(context, '/treeadd');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TreeAddPage(
+                                treeList: widget.treeList,
+                              )));
                 },
                 icon: const Icon(Icons.add_circle),
               ),
@@ -54,65 +66,108 @@ class _TreeListState extends State<TreeList> {
       ),
       body: Column(
         children: [
-          // Sorting and Filtering Widgets
+          SizedBox(
+            // Added for filtering and sorting
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              DropdownButton<String>(
-                value: _selectedBlock, // Default value
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      _selectedBlock =
-                          newValue; // Update selected sorting option
-                      _filterTreeListByBlock(newValue);
-                    });
-                  }
-                },
-                items:
-                    _blockTypes.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text('$value'),
-                  );
-                }).toList(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(230, 252, 242, 1),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: Color.fromRGBO(43, 128, 90, 0.5), width: 2),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedBlock, // Default value
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          _selectedBlock =
+                              newValue; // Update selected sorting option
+                          _filterTreeListByBlock(newValue);
+                        });
+                      }
+                    },
+                    items: _blockTypes
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text('$value'),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
-              DropdownButton<String>(
-                value: _selectedSortOption, // Default value
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      _selectedSortOption =
-                          newValue; // Update selected sorting option
-                    });
-                  }
-                },
-                items: <String>['Sort by', 'Harvested', 'Pruned', 'Fertilized']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text('$value'),
-                  );
-                }).toList(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(230, 252, 242, 1),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: Color.fromRGBO(43, 128, 90, 0.5), width: 2),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedSortOption, // Default value
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          _selectedSortOption =
+                              newValue; // Update selected sorting option
+                        });
+                      }
+                    },
+                    items: <String>[
+                      'Sort by',
+                      'Harvested',
+                      'Pruned',
+                      'Fertilized'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text('$value'),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _sortByDescending = !_sortByDescending;
-                    _sortTreeList(_selectedSortOption);
-                  });
-                },
-                child: Row(
-                  children: [
-                    _sortByDescending
-                        ? const Icon(Icons
-                            .keyboard_arrow_up_rounded) // Icon for descending order
-                        : const Icon(Icons
-                            .keyboard_arrow_down_rounded), // Icon for ascending order
-                  ],
+              SizedBox(
+                width: 75,
+                height: 50,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _sortByDescending = !_sortByDescending;
+                      _sortTreeList(_selectedSortOption);
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      _sortByDescending
+                          ? const Icon(Icons
+                              .filter_list_off_rounded) // Icon for descending order
+                          : const Icon(Icons
+                              .filter_list_rounded), // Icon for ascending order
+                    ],
+                  ),
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 20,
           ),
           Expanded(
             child: _isLoading
@@ -124,7 +179,7 @@ class _TreeListState extends State<TreeList> {
                       itemCount: _treeList?.length ?? 0,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: const EdgeInsets.all(5),
+                          margin: const EdgeInsets.all(10),
                           decoration: (BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -197,17 +252,23 @@ class _TreeListState extends State<TreeList> {
       _isLoading = true; // Set loading to true before fetching
     });
     try {
-      final data = await fetchTreeList(); // Call the service function
       setState(() {
-        _treeList = data ?? []; // Assign fetched data to _treeList
+        _treeList = widget.treeList ?? []; // Assign fetched data to _treeList
         _blockTypes = ['Block']; // Reset the list before updating
-        _originalTreeList = data ?? []; // Store the original unfiltered list
-        // Extract unique block types
-        _treeList?.forEach((tree) {
-          if (!_blockTypes.contains(tree['block'].toString())) {
-            _blockTypes.add(tree['block'].toString());
-          }
-        });
+        _originalTreeList =
+            widget.treeList ?? []; // Store the original unfiltered list
+        if (_treeList != null) {
+          // Extract unique block types
+          _treeList!.forEach((tree) {
+            if (!_blockTypes.contains(tree['block'].toString())) {
+              _blockTypes.add(tree['block'].toString());
+            }
+          });
+          // Sort block types alphabetically
+          _blockTypes.remove('Block'); // Remove 'Block' temporarily
+          _blockTypes.sort(); // Sort remaining block types
+          _blockTypes.insert(0, 'Block'); // Add 'Block' back at the beginning
+        }
         // Sort the tree list immediately after fetching
         _sortTreeList(_selectedSortOption);
         _isLoading = false;

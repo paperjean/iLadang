@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:sawitcare_app/pages/management/tree/tree_list.dart';
 import 'package:sawitcare_app/services/tree.dart';
 
 class Tree extends StatefulWidget {
@@ -30,7 +30,6 @@ class _TreeState extends State<Tree> {
     // TODO: implement initState
     super.initState();
     _fetchTreeMapping();
-
     getLocationUpdates();
   }
 
@@ -50,7 +49,13 @@ class _TreeState extends State<Tree> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/treelist');
+                    // Navigator.pushNamed(context, '/treelist');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TreeList(
+                                  treeList: _treeMapping,
+                                )));
                   },
                   icon: const Icon(Icons.list_alt_rounded),
                 ),
@@ -59,7 +64,7 @@ class _TreeState extends State<Tree> {
           ),
         ),
         body: GoogleMap(
-          mapType: _currentMapType,
+          mapType: MapType.satellite,
           onMapCreated: ((GoogleMapController controller) =>
               _mapController.complete(controller)),
           initialCameraPosition: CameraPosition(target: _pTree, zoom: 19),
@@ -74,21 +79,6 @@ class _TreeState extends State<Tree> {
                 child: Icon(Icons.gps_fixed),
                 onPressed: () {
                   getLocationUpdates();
-                },
-                heroTag: null,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: FloatingActionButton(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.layers),
-                onPressed: () => {
-                  setState(() {
-                    _currentMapType = (_currentMapType == MapType.normal)
-                        ? MapType.satellite
-                        : MapType.normal;
-                  })
                 },
                 heroTag: null,
               ),
@@ -165,7 +155,7 @@ class _TreeState extends State<Tree> {
 
   Future<void> _fetchTreeMapping() async {
     try {
-      final data = await fetchTreeMapping(); // Call the service function
+      final data = await fetchTreeList(); // Call the service function
       if (mounted) {
         setState(() {
           _treeMapping = data ?? []; // Assign fetched data to _treeList

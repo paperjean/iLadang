@@ -7,10 +7,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/management/tree/confirm_details.dart';
+import 'package:sawitcare_app/services/tree.dart';
 import 'package:sawitcare_app/services/user_validation.dart';
 
 class TreeAddPage extends StatefulWidget {
-  const TreeAddPage({super.key});
+  final List? treeList;
+
+  const TreeAddPage({
+    Key? key,
+    required this.treeList,
+  }) : super(key: key);
 
   @override
   State<TreeAddPage> createState() => _TreeAddPageState();
@@ -23,6 +29,13 @@ class _TreeAddPageState extends State<TreeAddPage> {
   LatLng? destLocation = LatLng(5.098148982414278, 118.43477932281274);
   Location location = Location();
   final Completer<GoogleMapController> _controller = Completer();
+  final Map<String, Marker> _markers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _generateMarkers(widget.treeList!);
+  }
 
   // This function displays a CupertinoModalPopup with a reasonable fixed height
   // which hosts CupertinoDatePicker.
@@ -33,6 +46,18 @@ class _TreeAddPageState extends State<TreeAddPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Place Tree Location'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              // Refresh Map
+              final List? latestTreeList = await fetchTreeList();
+
+              // generate new marker
+              _generateMarkers(latestTreeList!);
+            },
+            icon: const Icon(Icons.refresh_rounded),
+          ),
+        ],
       ),
       body: Center(
         child: Stack(
@@ -65,6 +90,7 @@ class _TreeAddPageState extends State<TreeAddPage> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
+              markers: _markers.values.toSet(),
             ),
             Align(
               alignment: Alignment.center,
@@ -81,7 +107,7 @@ class _TreeAddPageState extends State<TreeAddPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: () async {
           // Check if location is available
           if (destLocation == null) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -92,13 +118,19 @@ class _TreeAddPageState extends State<TreeAddPage> {
             );
             return;
           }
-          Navigator.push(
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  TreeConfirmDetailsPage(treeLocation: destLocation!),
+              builder: (context) => TreeConfirmDetailsPage(
+                treeLocation: destLocation!,
+                treeList: widget.treeList,
+              ),
             ),
           );
+          if (result == true) {
+            final List? latestTreeList = await fetchTreeList();
+            _generateMarkers(latestTreeList!);
+          }
         },
         label: const Text(
           'Confirm Location',
@@ -117,6 +149,29 @@ class _TreeAddPageState extends State<TreeAddPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  _generateMarkers(List treeList) async {
+    if (treeList.isEmpty) {
+      return;
+    } else {
+      for (int i = 0; i < treeList.length; i++) {
+        BitmapDescriptor markerIcon = await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(
+            size: Size(10, 10),
+          ),
+          'assets/tree_marker_green.png',
+        );
+        _markers[i.toString()] = Marker(
+            markerId: MarkerId(i.toString()),
+            position: LatLng(treeList[i]['latitude'], treeList[i]['longitude']),
+            icon: markerIcon,
+            infoWindow: InfoWindow(
+                title:
+                    'Tree ${treeList[i]['block']}${treeList[i]['tree_number']}'));
+        setState(() {});
+      }
+    }
   }
 
   Future<void> getCurrentLocation() async {
