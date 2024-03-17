@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/pages/activity/activities_summary_widget.dart';
 import 'package:sawitcare_app/pages/activity/activity_info_card.dart';
+import 'package:sawitcare_app/pages/activity/activity_list.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/promo_card.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/horizontal_card.dart';
 
@@ -33,7 +34,6 @@ class Activity extends StatelessWidget {
             child: Column(
           children: [
             ActivitySummaryCard(treeName: "20"),
-            // Line
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
@@ -47,7 +47,7 @@ class Activity extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    'List of Activities',
+                    'Recent Activities',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -85,187 +85,9 @@ class Activity extends StatelessWidget {
                 ],
               ),
             ),
-            // List with Name, Activity Done, Date Time
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ActivityInfoDialog();
-                  },
-                );
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                padding: const EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12.5),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(10, 20),
-                        blurRadius: 10,
-                        spreadRadius: 0,
-                        color: Colors.grey.withOpacity(.05)),
-                  ],
-                ),
-                child: const Row(
-                  children: [
-                    Text(
-                      'Ikmal harvested a tree at B153',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14),
-                    ),
-                    Spacer(),
-                    Text(
-                      '3:00 PM',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                    Text(
-                      ' | ',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                    Text(
-                      'Today',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Space
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                padding: const EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12.5),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(10, 20),
-                        blurRadius: 10,
-                        spreadRadius: 0,
-                        color: Colors.grey.withOpacity(.05)),
-                  ],
-                ),
-                child: const Row(
-                  children: [
-                    Text(
-                      'Ikmal harvested a tree at B153',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14),
-                    ),
-                    Spacer(),
-                    Text(
-                      '3:00 PM',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                    Text(
-                      ' | ',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                    Text(
-                      'Today',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Space
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                padding: const EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12.5),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(10, 20),
-                        blurRadius: 10,
-                        spreadRadius: 0,
-                        color: Colors.grey.withOpacity(.05)),
-                  ],
-                ),
-                child: const Row(
-                  children: [
-                    Text(
-                      'Ikmal harvested a tree at B153',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14),
-                    ),
-                    Spacer(),
-                    Text(
-                      '3:00 PM',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                    Text(
-                      ' | ',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                    Text(
-                      'Today',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            )
+
+            // Line
+            ActivityList()
           ],
         )),
       ),
