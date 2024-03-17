@@ -39,6 +39,12 @@ class _TreeState extends State<Tree> {
         appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 60),
           child: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                _fetchTreeMapping();
+              },
+              icon: const Icon(Icons.refresh_rounded),
+            ),
             centerTitle: true,
             elevation: 0,
             title: const Text(
