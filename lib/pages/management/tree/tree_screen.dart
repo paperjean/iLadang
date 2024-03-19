@@ -19,6 +19,7 @@ class _TreeState extends State<Tree> {
   LatLng? _currentP;
   final Map<String, Marker> _markers = {};
   List<Map<String, dynamic>> _treeMapping = [];
+  bool isLoading = true;
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
@@ -51,46 +52,45 @@ class _TreeState extends State<Tree> {
               "Tree",
             ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IconButton(
-                  onPressed: () {
-                    // Navigator.pushNamed(context, '/treelist');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TreeList(
-                                  treeList: _treeMapping,
-                                )));
-                  },
-                  icon: const Icon(Icons.list_alt_rounded),
+              Visibility(
+                visible: isLoading == false,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    onPressed: () {
+                      // Navigator.pushNamed(context, '/treelist');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TreeList(
+                                    treeList: _treeMapping,
+                                  )));
+                    },
+                    icon: const Icon(Icons.list_alt_rounded),
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        body: GoogleMap(
-          mapType: MapType.satellite,
-          onMapCreated: ((GoogleMapController controller) =>
-              _mapController.complete(controller)),
-          initialCameraPosition: CameraPosition(target: _pTree, zoom: 19),
-          markers: _markers.values.toSet(),
-        ),
-        floatingActionButton: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: FloatingActionButton(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.gps_fixed),
-                onPressed: () {
-                  getLocationUpdates();
-                },
-                heroTag: null,
+        body: Stack(children: [
+          GoogleMap(
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+            mapType: MapType.satellite,
+            onMapCreated: ((GoogleMapController controller) =>
+                _mapController.complete(controller)),
+            initialCameraPosition: CameraPosition(target: _pTree, zoom: 19),
+            markers: _markers.values.toSet(),
+          ),
+          if (isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
             ),
-          ],
-        ),
+        ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat);
   }
 
@@ -155,7 +155,6 @@ class _TreeState extends State<Tree> {
           infoWindow: InfoWindow(
               title:
                   'Tree ${_treeMapping[i]['block']}${_treeMapping[i]['tree_number']}'));
-      setState(() {});
     }
   }
 
@@ -167,6 +166,7 @@ class _TreeState extends State<Tree> {
           _treeMapping = data ?? []; // Assign fetched data to _treeList
         });
       }
+      isLoading = false;
       print(_treeMapping);
       _generateMarkers();
     } catch (e) {
