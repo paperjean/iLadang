@@ -14,6 +14,7 @@ class ActivityList extends StatefulWidget {
 }
 
 class _ActivityListState extends State<ActivityList> {
+
   // Method to get the formatted date string
   String getFormattedDate(String dateString) {
     DateTime activityDate = DateTime.parse(dateString);
@@ -40,7 +41,19 @@ class _ActivityListState extends State<ActivityList> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return ActivityInfoDialog();
+                  return ActivityInfoDialog(
+                    imageUrl: widget._activityList?[index]?['image_url'],
+                    first_name: widget._activityList?[index]?['first_name'],
+                    action: widget._activityList?[index]?['type'],
+                    block: widget._activityList?[index]?['block'],
+                    tree_number: widget._activityList?[index]?['tree_number'],
+                    time: DateFormat('h:mm a').format(DateTime.parse(
+                        widget._activityList?[index]?['created_at'])),
+                    date: DateFormat('d/M/y').format(DateTime.parse(
+                        widget._activityList?[index]?['created_at'])),
+                    remark: widget._activityList?[index]?['remark'],
+                    bunches: '1',
+                  );
                 },
               );
             },
