@@ -48,9 +48,9 @@ class ActivitySummaryCard extends StatelessWidget {
           Row(
             children: [
               const Padding(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                 child: Text(
-                  "Latest Summary",
+                  "Summary",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -59,33 +59,6 @@ class ActivitySummaryCard extends StatelessWidget {
               ),
               // Drop Down
               Spacer(),
-              Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: Color.fromRGBO(226, 232, 240, 1),
-                      width: 2,
-                    ),
-                  ),
-                  alignment: Alignment.centerLeft,
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Last week',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ))
             ],
           ),
           Row(

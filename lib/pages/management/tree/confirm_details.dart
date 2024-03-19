@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sawitcare_app/main.dart';
+import 'package:sawitcare_app/pages/bricks/Widgets%20Example/date_picker.dart';
 import 'package:sawitcare_app/services/user_validation.dart';
 
 class TreeConfirmDetailsPage extends StatefulWidget {
@@ -93,7 +94,7 @@ class _TreeConfirmDetailsPageState extends State<TreeConfirmDetailsPage> {
                         controller: _treeNumberController,
                       ),
                     ),
-                    _DatePickerItem(
+                    DatePickerItem(
                       children: [
                         Text('Date Planted', style: TextStyle(fontSize: 16)),
                         CupertinoButton(
@@ -161,11 +162,8 @@ class _TreeConfirmDetailsPageState extends State<TreeConfirmDetailsPage> {
                         supabase.auth.currentUser!.id),
                   });
 
-
                   // Redirect to TreeAddPage with Latest Tree List
-                  Navigator.pop(context, true
-                    
-                  );
+                  Navigator.pop(context, true);
                   // Navigator.pushNamed(context, '/treelist');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -224,26 +222,6 @@ class _TreeConfirmDetailsPageState extends State<TreeConfirmDetailsPage> {
         child: SafeArea(
           top: false,
           child: child,
-        ),
-      ),
-    );
-  }
-}
-
-class _DatePickerItem extends StatelessWidget {
-  const _DatePickerItem({required this.children});
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: children,
         ),
       ),
     );

@@ -73,6 +73,8 @@ class MyApp extends StatelessWidget {
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color.fromRGBO(43, 128, 90, 1),
         ),
+        progressIndicatorTheme:
+            ProgressIndicatorThemeData(color: Colors.green.shade100),
       ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{

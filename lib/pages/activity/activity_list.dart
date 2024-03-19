@@ -65,7 +65,7 @@ class _ActivityListState extends State<ActivityList> {
                     '${widget._activityList?[index]?['first_name']} ${widget._activityList?[index]?['type'] == 'harvesting' ? 'harvested' : (widget._activityList?[index]?['type'] == 'pruning' ? 'pruned' : 'fertilized')} Tree ${widget._activityList?[index]?['block']}${widget._activityList?[index]?['tree_number']}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.grey.shade600,
                       fontWeight: FontWeight.normal,
                       fontSize: 14,
                     ),
@@ -76,14 +76,14 @@ class _ActivityListState extends State<ActivityList> {
                         widget._activityList?[index]?['created_at'])),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.grey.shade600,
                         fontWeight: FontWeight.normal,
                         fontSize: 12),
                   ),
                   Text(
                     ' | ',
                     style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.grey.shade600,
                         fontWeight: FontWeight.normal,
                         fontSize: 12),
                   ),
@@ -92,7 +92,7 @@ class _ActivityListState extends State<ActivityList> {
                         widget._activityList?[index]?['created_at']),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.grey.shade600,
                         fontWeight: FontWeight.normal,
                         fontSize: 12),
                   ),

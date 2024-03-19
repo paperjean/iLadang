@@ -23,7 +23,6 @@ class _TreeListState extends State<TreeList> {
   bool _isLoading = true; // Initialize as true to show loading initially
   List? _originalTreeList; // Store original unfiltered list
   bool _sortByDescending = true; // Added for sorting
-  bool _filterByBlock = false; // Added for filtering
   String _selectedBlock = 'Block'; // Added for filtering
   String _selectedSortOption = 'Sort by'; // Added for sorting
   List<String> _blockTypes = ['Block']; // Initialize with 'Block'
