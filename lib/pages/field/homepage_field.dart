@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sawitcare_app/pages/field/employee_activity/employee_activity_screen.dart';
 import 'package:sawitcare_app/pages/field/menu/menu_screen.dart';
-import 'package:sawitcare_app/pages/activity/activity_screen.dart';
-import 'package:sawitcare_app/pages/management/yield/yield_screen.dart';
+import 'package:sawitcare_app/pages/management/employee/employee_screen.dart';
 import 'package:sawitcare_app/pages/profile/profile_screen.dart';
 
 class MyEmployeeHomePage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _MyEmployeeHomePageState extends State<MyEmployeeHomePage> {
   int currentIndex = 1;
 
   final screen = [
-    const Activity(),
+    const EmployeeActivity(),
     const Menu(),
     const Profile(),
   ];
