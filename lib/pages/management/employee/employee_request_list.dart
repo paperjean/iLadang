@@ -26,26 +26,10 @@ class _EmployeeRequestState extends State<EmployeeRequest> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: AppBar(
-              elevation: 0,
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
               centerTitle: true,
               title: const Text(
                 'Requests',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
-              actions: [],
             )),
         body: _isLoading
             ? const Center(
