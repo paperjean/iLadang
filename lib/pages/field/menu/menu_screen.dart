@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/cardwidget.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/price_card.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/delivery_record.dart';
 import 'package:sawitcare_app/pages/management/yield/bar_graph.dart';
+import 'package:sawitcare_app/services/user.dart';
 
 import '../reporting/report_form.dart';
 
@@ -14,6 +16,21 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  String fullName = '';
+  void initState() {
+    super.initState();
+    fetchAndSetFirstName();
+  }
+
+  Future<void> fetchAndSetFirstName() async {
+    String? data = await fetchName();
+    if (mounted) {
+      setState(() {
+        fullName = data!;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +56,7 @@ class _MenuState extends State<Menu> {
                     Text("Welcome back,",
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.normal)),
-                    Text("Jefferson",
+                    Text('$fullName',
                         style: const TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold))
                   ],
@@ -53,16 +70,20 @@ class _MenuState extends State<Menu> {
                 height: 150,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: const LinearGradient(
-                        colors: [Color(0xff53E88B), Color(0xff15BE77)])),
+                    color: Color.fromRGBO(230, 252, 242, 1),
+                    border: Border.all(
+                        color: Color.fromRGBO(43, 128, 90, 1), width: 1)),
                 child: const Stack(
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.all(20),
-                        child: Icon(Icons.location_on_outlined,
-                            size: 100, color: Colors.white),
+                        child: Icon(
+                          Icons.search,
+                          size: 100,
+                          color: Color.fromRGBO(43, 128, 90, 1),
+                        ),
                       ),
                     ),
                     Align(
@@ -72,9 +93,9 @@ class _MenuState extends State<Menu> {
                         child: Text(
                           "Find Tree",
                           style: TextStyle(
-                              color: Colors.white,
                               fontSize: 25,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(43, 128, 90, 1)),
                         ),
                       ),
                     ),
@@ -89,8 +110,11 @@ class _MenuState extends State<Menu> {
                 height: 150,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: const LinearGradient(
-                        colors: [Color(0xff53E88B), Color(0xff15BE77)])),
+                    gradient: const LinearGradient(colors: [
+                      Color.fromRGBO(27, 115, 75, 1),
+                      Color.fromRGBO(52, 169, 116, 1),
+                      Color.fromRGBO(0, 107, 58, 1)
+                    ])),
                 child: Stack(
                   children: [
                     Align(
