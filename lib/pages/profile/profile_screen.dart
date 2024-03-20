@@ -43,6 +43,9 @@ class _ProfileState extends State<Profile> {
                         return AlertDialog(
                           surfaceTintColor: Colors.white,
                           backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           title: const Text(
                             'Confirm Log Out',
                             style: TextStyle(

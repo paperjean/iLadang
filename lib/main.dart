@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sawitcare_app/pages/authentication/declined.dart';
 import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/removed.dart';
@@ -31,12 +32,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.light().copyWith(
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: Color.fromRGBO(248, 249, 250, 1),
           titleTextStyle: TextStyle(
             color: Colors.black,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
           ),
         ),
         scaffoldBackgroundColor: const Color.fromRGBO(247, 247, 247, 1),
@@ -45,6 +46,32 @@ class MyApp extends StatelessWidget {
           style: TextButton.styleFrom(
             foregroundColor: const Color.fromRGBO(43, 128, 90, 1),
             backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
+          ),
+        ),
+        textTheme: TextTheme(
+          displayLarge: const TextStyle(),
+          titleLarge: GoogleFonts.manrope(
+            color: Colors.black,
+            fontSize: 25,
+            // fontWeight: FontWeight.,
+          ),
+          titleMedium: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          titleSmall: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          bodyLarge: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          bodyMedium: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          bodySmall: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          displaySmall: GoogleFonts.manrope(
+            color: Colors.black,
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -75,6 +102,11 @@ class MyApp extends StatelessWidget {
         ),
         progressIndicatorTheme:
             ProgressIndicatorThemeData(color: Colors.green.shade100),
+        dialogTheme: DialogTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
       ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
