@@ -26,11 +26,29 @@ class _MenuState extends State<Menu> {
                 'Menu',
               ),
             )),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
+        body: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Welcome back,",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.normal)),
+                    Text("Jefferson",
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold))
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
                 width: MediaQuery.of(context).size.width,
                 height: 150,
                 decoration: BoxDecoration(
@@ -44,7 +62,7 @@ class _MenuState extends State<Menu> {
                       child: Padding(
                         padding: EdgeInsets.all(20),
                         child: Icon(Icons.location_on_outlined,
-                            size: 60, color: Colors.white),
+                            size: 100, color: Colors.white),
                       ),
                     ),
                     Align(
@@ -63,10 +81,10 @@ class _MenuState extends State<Menu> {
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
                 width: MediaQuery.of(context).size.width,
                 height: 150,
                 decoration: BoxDecoration(
@@ -78,10 +96,11 @@ class _MenuState extends State<Menu> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Icon(Icons.qr_code_scanner_rounded,
-                            size: 60, color: Colors.white),
-                      ),
+                          padding: EdgeInsets.all(20),
+                          child: Image.asset(
+                            'assets/nfc_scan.png',
+                            width: 100,
+                          )),
                     ),
                     InkWell(
                       onTap: () {
@@ -108,9 +127,9 @@ class _MenuState extends State<Menu> {
                     ),
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ));
   }
 }
