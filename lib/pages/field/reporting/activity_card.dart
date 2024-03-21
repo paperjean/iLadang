@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class ActivityCard extends StatelessWidget {
   final String text;
   final String imageAsset;
-  final String subtitle;
   final Function() onPressed;
 
   const ActivityCard(
       {required this.text,
       required this.imageAsset,
-      required this.subtitle,
       required this.onPressed,
       Key? key})
       : super(key: key);
@@ -46,14 +44,6 @@ class ActivityCard extends StatelessWidget {
                 )),
             const SizedBox(
               height: 5,
-            ),
-            Text(
-              subtitle,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12),
             ),
             const SizedBox(
               height: 10,

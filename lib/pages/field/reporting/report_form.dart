@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/pages/field/reporting/activity_card.dart';
+import 'package:sawitcare_app/pages/field/reporting/harvest_report.dart';
 import 'package:sawitcare_app/pages/field/reporting/tree_info_widget.dart';
 
 class ReportForm extends StatefulWidget {
@@ -34,8 +35,8 @@ class _ReportFormState extends State<ReportForm> {
         body: Center(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
                 child: TreeInfoCard(treeName: "B152"),
               ),
               // Line
@@ -56,26 +57,31 @@ class _ReportFormState extends State<ReportForm> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ActivityCard(
-                    text: "Explore",
-                    imageAsset: 'assets/sickle.png',
-                    subtitle: "+30 books",
-                    onPressed: () {}),
+                child: InkWell(
+                  onTap: () {},
+                  child: ActivityCard(
+                      text: "Harvest",
+                      imageAsset: 'assets/sickle.png',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReportHarvest()));
+                      }),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ActivityCard(
-                    text: "Explore",
+                    text: "Prune",
                     imageAsset: 'assets/leaf.png',
-                    subtitle: "+30 books",
                     onPressed: () {}),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ActivityCard(
-                    text: "Explore",
+                    text: "Fertilize",
                     imageAsset: 'assets/fertilizer_icon.png',
-                    subtitle: "+30 books",
                     onPressed: () {}),
               ),
             ],

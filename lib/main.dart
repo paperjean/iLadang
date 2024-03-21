@@ -5,6 +5,7 @@ import 'package:sawitcare_app/pages/authentication/pending_registration.dart';
 import 'package:sawitcare_app/pages/authentication/removed.dart';
 import 'package:sawitcare_app/pages/authentication/start_page.dart';
 import 'package:sawitcare_app/pages/field/homepage_field.dart';
+import 'package:sawitcare_app/pages/management/tree/tree_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sawitcare_app/pages/management/homepage_management.dart';
 import 'package:sawitcare_app/pages/authentication/splashscreen.dart';
@@ -118,6 +119,7 @@ class MyApp extends StatelessWidget {
         '/role': (_) => const ChooseRolePage(),
         '/removed': (_) => const RemovedPage(),
         '/declined': (_) => const DeclinedPage(),
+        '/tree_screen': (_) => const Tree(),
       },
     );
   }

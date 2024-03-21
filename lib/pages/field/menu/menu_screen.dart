@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sawitcare_app/main.dart';
-import 'package:sawitcare_app/pages/bricks/Widgets Example/cardwidget.dart';
-import 'package:sawitcare_app/pages/bricks/Widgets Example/price_card.dart';
-import 'package:sawitcare_app/pages/bricks/Widgets Example/delivery_record.dart';
-import 'package:sawitcare_app/pages/management/yield/bar_graph.dart';
+import 'package:sawitcare_app/pages/field/reporting/scan_nfc_page.dart';
 import 'package:sawitcare_app/services/user.dart';
 
 import '../reporting/report_form.dart';
@@ -65,41 +61,46 @@ class _MenuState extends State<Menu> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 150,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(230, 252, 242, 1),
-                    border: Border.all(
-                        color: Color.fromRGBO(43, 128, 90, 1), width: 1)),
-                child: const Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Icon(
-                          Icons.search,
-                          size: 100,
-                          color: Color.fromRGBO(43, 128, 90, 1),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/tree_screen');
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Color.fromRGBO(230, 252, 242, 1),
+                      border: Border.all(
+                          color: Color.fromRGBO(43, 128, 90, 1), width: 1)),
+                  child: const Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Icon(
+                            Icons.search,
+                            size: 100,
+                            color: Color.fromRGBO(43, 128, 90, 1),
+                          ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.all(25.0),
-                        child: Text(
-                          "Find Tree",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(43, 128, 90, 1)),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(25.0),
+                          child: Text(
+                            "Find Tree",
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(43, 128, 90, 1)),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -131,7 +132,7 @@ class _MenuState extends State<Menu> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ReportForm()),
+                              builder: (context) => const ScanNFC()),
                         );
                         print("Scan and Report");
                       },
