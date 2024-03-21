@@ -4,6 +4,7 @@ import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/pages/management/tree/tree_add.dart';
 import 'package:sawitcare_app/pages/management/tree/tree_list_widget.dart';
 import 'package:sawitcare_app/pages/management/tree/tree_screen.dart';
+import 'package:sawitcare_app/pages/management/tree/tree_segmenter.dart';
 import 'package:sawitcare_app/services/tree.dart';
 
 class TreeList extends StatefulWidget {
@@ -45,6 +46,21 @@ class _TreeListState extends State<TreeList> {
             "Tree List",
           ),
           actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () {
+                  // Navigator.pushNamed(context, '/treeadd');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TreeSegmenter(
+                                treeList: widget.treeList,
+                              )));
+                },
+                icon: const Icon(Icons.square_foot_rounded),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
