@@ -20,6 +20,20 @@ class _TreeState extends State<Tree> {
   final Map<String, Marker> _markers = {};
   List<Map<String, dynamic>> _treeMapping = [];
   bool isLoading = true;
+  Set<Polygon> existingPolygons = {
+    // Placeholder for fake polygon. Remove this when fetching polygons current polygons exists.
+    Polygon(
+      polygonId: PolygonId('tree'),
+      points: const [
+        LatLng(5.099330401023339, 118.43106763435685),
+        LatLng(5.099330401023339, 118.43106763435685),
+        LatLng(5.099330401023339, 118.43106763435685),
+      ],
+      strokeWidth: 2,
+      strokeColor: Colors.green,
+      fillColor: Colors.green.withOpacity(0.5),
+    ),
+  };
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
@@ -31,6 +45,7 @@ class _TreeState extends State<Tree> {
     // TODO: implement initState
     super.initState();
     _fetchTreeMapping();
+    _fetchBlockList();
     getLocationUpdates();
   }
 
@@ -49,6 +64,7 @@ class _TreeState extends State<Tree> {
               IconButton(
                 onPressed: () {
                   _fetchTreeMapping();
+                  _fetchBlockList();
                 },
                 icon: const Icon(Icons.refresh_rounded),
               ),
@@ -75,6 +91,7 @@ class _TreeState extends State<Tree> {
         ),
         body: Stack(children: [
           GoogleMap(
+            polygons: existingPolygons,
             myLocationButtonEnabled: true,
             myLocationEnabled: true,
             mapType: MapType.satellite,
@@ -143,7 +160,7 @@ class _TreeState extends State<Tree> {
     for (int i = 0; i < _treeMapping.length; i++) {
       BitmapDescriptor markerIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(
-          size: Size(10, 10),
+          size: Size(5, 5),
         ),
         'assets/tree_marker_green.png',
       );
@@ -172,5 +189,50 @@ class _TreeState extends State<Tree> {
     } catch (e) {
       print(e);
     }
+  }
+
+  // Fetch Block List
+  Future<void> _fetchBlockList() async {
+    existingPolygons = {
+      // Placeholder for fake polygon. Remove this when fetching polygons current polygons exists.
+      Polygon(
+        polygonId: PolygonId('tree'),
+        points: const [
+          LatLng(5.099330401023339, 118.43106763435685),
+          LatLng(5.099330401023339, 118.43106763435685),
+          LatLng(5.099330401023339, 118.43106763435685),
+        ],
+        strokeWidth: 2,
+        strokeColor: Colors.green,
+        fillColor: Colors.green.withOpacity(0.5),
+      ),
+    };
+    final result = await fetchBlockCoordinates();
+    if (result.isEmpty) {
+      // Show SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('No Blocks Available'),
+          backgroundColor: Colors.red[400],
+        ),
+      );
+    } else {
+      // Process block data
+      setState(() {
+        for (var block in result) {
+          final List<LatLng> cornerCoordinates = block['corner_coordinates'];
+          // Create Polygon with appropriate colors (considering parsing results)
+          existingPolygons.add(Polygon(
+            polygonId: PolygonId(block['block_id']),
+            points: cornerCoordinates,
+            strokeWidth: 2,
+            strokeColor: Color(block['color']),
+            fillColor:
+                Color(block['color']).withOpacity(0.5), // Default or fallback
+          ));
+        }
+      });
+    }
+    print(result);
   }
 }

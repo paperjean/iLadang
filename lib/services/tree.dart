@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sawitcare_app/main.dart';
 import 'package:sawitcare_app/services/user_validation.dart';
@@ -67,8 +68,9 @@ Future<List<Map<String, dynamic>>?> fetchTreeList() async {
 // Function to post data of block to supabase
 Future<bool> postBlockData(
   String blockLabel,
-  String blockColor,
+  int blockColor,
   List<LatLng> cornerList,
+  String? employeeId,
 ) async {
   // Convert cornerList to JSON
   try {
@@ -84,28 +86,28 @@ Future<bool> postBlockData(
       'block_label': blockLabel,
       'color': blockColor,
       'corner_coordinates': cornerListJson,
+      'plantation_id': await getUserPlantationId(supabase.auth.currentUser!.id),
+      'employee_id': employeeId,
     });
     return true;
   } catch (e) {
     print(e);
+    // Error Snackbar
+    SnackBar(
+      content: const Text('Error Registering Block'),
+      backgroundColor: Colors.red[400],
+    );
     return false;
   }
 }
 
-// Fetch List of Polygon
-// 1. Fetch All Blocks
-// 2. From the Blocks, extract the sets of corner coordinates
-// 3. For Blocks assign the corner coordinates to the polygon
-// 4. Return the list of blocks with each having its own corner coordinates
-
-// In client, use the list of blocks to draw the polygons
-// Access the corner coordinates of each block to draw the polygon by Blocks[x].cornerCoordinates.
-//
-
-// Fetch Corner Coordinates of Block
+// Function to fetch block coordinates from supabase
 Future<List<Map<String, dynamic>>> fetchBlockCoordinates() async {
   try {
-    final data = await supabase.from('tree_block').select();
+    final data = await supabase.from('tree_block').select().eq(
+          'plantation_id',
+          await getUserPlantationId(supabase.auth.currentUser!.id),
+        );
     final blockList = data
         .map<Map<String, dynamic>>(
             (dynamic item) => item as Map<String, dynamic>)

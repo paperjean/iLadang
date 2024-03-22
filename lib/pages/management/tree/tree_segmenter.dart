@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:location/location.dart';
@@ -23,6 +24,7 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
   Location location = Location();
   final Completer<GoogleMapController> _controller = Completer();
   final Map<String, Marker> _markers = {};
+  Color color = Colors.green.shade300;
   // Hold Existing Polygons
   Set<Polygon> existingPolygons = {
     // Placeholder for fake polygon. Remove this when fetching polygons current polygons exists.
@@ -159,6 +161,32 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
                   ),
                 ),
               ),
+
+              const SizedBox(
+                width: 10,
+              ),
+              FloatingActionButton.extended(
+                label: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                heroTag: 'color',
+                onPressed: () {
+                  pickColor(context);
+                },
+                icon: const Icon(
+                  Icons.color_lens,
+                  color: Color.fromRGBO(
+                    43,
+                    128,
+                    90,
+                    1,
+                  ),
+                ),
+              ),
               const SizedBox(width: 10),
               FloatingActionButton(
                 heroTag: 'confirm',
@@ -197,6 +225,36 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
     });
   }
 
+  void pickColor(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: Text('Pick Block Color'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              buildColorPicker(),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'SELECT',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+            ],
+          )));
+
+  Widget buildColorPicker() => ColorPicker(
+      pickerColor: color,
+      onColorChanged: (color) => setState(() {
+            this.color = color;
+            // Remove the polygon you just created
+            existingPolygons
+                .removeWhere((polygon) => polygon.polygonId.value == 'block');
+            _createPolygon();
+          }));
+
   _addMarker() async {
     // Check if location is available
     if (destLocation == null) {
@@ -219,15 +277,20 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
       );
 
       if (cornerList.length > 3) {
-        existingPolygons.add(Polygon(
-          polygonId: PolygonId('block'),
-          points: cornerList,
-          strokeWidth: 2,
-          strokeColor: Colors.green,
-          fillColor: Colors.green.withOpacity(0.5),
-        ));
+        _createPolygon();
       }
     });
+  }
+
+  // Create Polygon
+  _createPolygon() {
+    existingPolygons.add(Polygon(
+      polygonId: PolygonId('block'),
+      points: cornerList,
+      strokeWidth: 2,
+      strokeColor: color,
+      fillColor: color.withOpacity(0.5),
+    ));
   }
 
   Future<void> getCurrentLocation() async {
@@ -315,27 +378,18 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
       return;
     }
     // Confirm location
-    final result = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BlockConfirmDetailPage(
           cornerList: cornerList,
+          color: color,
         ),
       ),
     );
-    if (result != true) {
-      throw 'Error Confirming Block';
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Block Confirmed'),
-          backgroundColor: Colors.green[400],
-        ),
-      );
-      // Reset the corner list
-      _resetTreeSegmenter();
-      _fetchBlockList();
-    }
+
+    _resetTreeSegmenter();
+    _fetchBlockList();
   }
 
   // Fetch Block List
@@ -350,17 +404,18 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
         ),
       );
     } else {
-      // For each block, append a polygon to the existingPolygons
-      print(result);
+      // Process block data
       setState(() {
         for (var block in result) {
           final List<LatLng> cornerCoordinates = block['corner_coordinates'];
+          // Create Polygon with appropriate colors (considering parsing results)
           existingPolygons.add(Polygon(
             polygonId: PolygonId(block['block_id']),
             points: cornerCoordinates,
             strokeWidth: 2,
-            strokeColor: Colors.green,
-            fillColor: Colors.green.withOpacity(0.5),
+            strokeColor: Color(block['color']),
+            fillColor:
+                Color(block['color']).withOpacity(0.5), // Default or fallback
           ));
         }
       });

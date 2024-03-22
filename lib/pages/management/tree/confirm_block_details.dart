@@ -7,9 +7,11 @@ import 'package:sawitcare_app/services/tree.dart';
 
 class BlockConfirmDetailPage extends StatefulWidget {
   final List<LatLng> cornerList;
+  final Color color;
 
   // Required Parameters
-  const BlockConfirmDetailPage({required this.cornerList, Key? key})
+  const BlockConfirmDetailPage(
+      {required this.cornerList, required this.color, Key? key})
       : super(key: key);
 
   @override
@@ -20,7 +22,6 @@ class _BlockConfirmDetailPageState extends State<BlockConfirmDetailPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _blockController = TextEditingController();
   DateTime date = DateTime.now();
-  Color color = Colors.green.shade300;
 
   @override
   Widget build(BuildContext context) {
@@ -64,28 +65,6 @@ class _BlockConfirmDetailPageState extends State<BlockConfirmDetailPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text('Pick a Color: '),
-                          InkWell(
-                            onTap: () {
-                              pickColor(context);
-                            },
-                            child: Container(
-                              width: 100,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: color,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Color.fromRGBO(226, 232, 240, 1),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -103,11 +82,11 @@ class _BlockConfirmDetailPageState extends State<BlockConfirmDetailPage> {
                   // Register Tree
                   final result = await postBlockData(
                     _blockController.text,
-                    colorToHex(color),
+                    widget.color.value,
                     widget.cornerList,
+                    null,
                   );
                   if (result != true) {
-                    throw 'Error Registering Block';
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -140,52 +119,6 @@ class _BlockConfirmDetailPageState extends State<BlockConfirmDetailPage> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  void pickColor(BuildContext context) => showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-          title: Text('Pick Block Color'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildColorPicker(),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text(
-                  'SELECT',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
-            ],
-          )));
-
-  Widget buildColorPicker() => ColorPicker(
-      pickerColor: color,
-      onColorChanged: (color) => setState(() => this.color = color));
-
-  void _showDialog(Widget child) {
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => Container(
-        height: 216,
-        padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system
-        // navigation bar.
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        // Provide a background color for the popup.
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
-        child: SafeArea(
-          top: false,
-          child: child,
         ),
       ),
     );
