@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BalanceCard extends StatelessWidget {
+class BalanceCard1 extends StatelessWidget {
   final String title;
   final String body;
   final Function() onMoreTap;
@@ -9,14 +9,14 @@ class BalanceCard extends StatelessWidget {
   final String subInfoText;
   final Widget subIcon;
 
-  const BalanceCard(
+  const BalanceCard1(
       {required this.title,
       this.body =
           """Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudi conseqr!""",
       required this.onMoreTap,
       this.subIcon = const CircleAvatar(
         child: Icon(
-          Icons.receipt_long_rounded,
+          Icons.attach_money_outlined,
           color: Colors.white,
         ),
         backgroundColor: Color.fromRGBO(43, 128, 90, 1),
@@ -60,34 +60,10 @@ class BalanceCard extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
-                    Container(
-  width: 75,
-  height: 30,
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(100.0),
-    color: Color.fromRGBO(117, 120, 119, 1),
-  ),
-  child: GestureDetector(
-    onTap: onMoreTap,
-    child: Center(
-      child: Text(
-        "More",
-        style: TextStyle(color: Colors.white),
-      ),
-    ),
-  ),
-),
-
-
                   ],
                 ),
-                SizedBox(height: 10),
-                // Text(
-                //   body,
-                //   style:
-                //       TextStyle(color: Colors.white.withOpacity(.75), fontSize: 14),
-                // ),
                 SizedBox(height: 15),
+          
                 Container(
                   width: double.infinity,
                   height: 75,
@@ -102,19 +78,20 @@ class BalanceCard extends StatelessWidget {
                         SizedBox(width: 15),
                         subIcon,
                         SizedBox(width: 25),
-                        Column(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          //crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(subInfoTitle),
                             Text(
                               subInfoText,
                               style: TextStyle(
-                                color: Color.fromRGBO(103, 106, 107, 1),
-                                fontSize: 22,
+                                color: Color.fromRGBO(105, 109, 110, 1),
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            SizedBox(width: 10,),
+                            Text(subInfoTitle,),
                           ],
                         ),
                       ],

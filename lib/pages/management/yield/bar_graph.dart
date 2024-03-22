@@ -25,7 +25,7 @@ class MyBarGraph extends StatelessWidget {
     myBarData.initializeBarData();
 
     return BarChart(BarChartData(
-      maxY: 40.0,
+      maxY: 30.0,
       minY: 0,
       gridData: FlGridData(show: false),
       borderData: FlBorderData(show: false),
@@ -46,10 +46,10 @@ class MyBarGraph extends StatelessWidget {
           .map(
             (data) => BarChartGroupData(
               x: data.x,
-              barRods: [
+              barRods: [ 
                 BarChartRodData(
                     toY: data.y,
-                    color: const Color.fromRGBO(43, 128, 90, 1),
+                    color: const Color.fromRGBO(33, 202, 121, 0.9),
                     width: 20)
               ],
             ),

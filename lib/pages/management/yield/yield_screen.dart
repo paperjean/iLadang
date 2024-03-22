@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/cardwidget.dart';
+import 'package:sawitcare_app/pages/bricks/Widgets Example/cardwidget1.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/price_card.dart';
 import 'package:sawitcare_app/pages/bricks/Widgets Example/delivery_record.dart';
 import 'package:sawitcare_app/pages/management/yield/bar_graph.dart';
+import 'package:sawitcare_app/pages/management/yield/ServicePage.dart';
 
 class Yield extends StatefulWidget {
-  const Yield({super.key});
+  const Yield({Key? key}) : super(key: key);
 
   @override
   State<Yield> createState() => _YieldState();
@@ -31,149 +33,169 @@ class _YieldState extends State<Yield> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: AppBar(
-            elevation: 0,
-            centerTitle: false,
-            title: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Yield',
-                  ),
-                ],
-              ),
-            ),
-          )),
-      body: Center(
-          child: ListView(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 200,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: MyBarGraph(
-                monthlySummary: monthlySummary,
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DeliveryRecord()),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-              child: BalanceCard(
-                title: "Total Delivery",
-                body: "Your current balance is",
-                subInfoText: " 9.3 Tan",
-                subInfoTitle: "Up until 13 Apr 2023",
-                onMoreTap: () {},
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 5, 30, 10),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Color.fromARGB(31, 255, 251, 251),
-              ),
-              height: 120,
-              width: 120,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: CircularProgressIndicator(
-                      value: 0.372,
-                      backgroundColor: Colors.grey,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(Colors.lightGreen),
-                      strokeWidth: 15,
-                    ),
-                  ),
-                  const SizedBox(width: 50),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Monthly Goals | APRIL ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '15.7 Tan left to collect',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '17 Days Remaining ',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 200,
-            child: GridView(
-              // Make a 2 column grid
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              // Generate 100 widgets that display their index in the List
+        preferredSize: const Size.fromHeight(45),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: false,
+          title: const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 0, 0, 70),
-                  child: PriceCard(
-                      text: "Suggestion",
-                      imageUrl: "assets/suggestion.png",
-                      subtitle: "",
-                      onPressed: () {}),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 30, 70),
-                  child: PriceCard(
-                      text: "Cheque Record",
-                      imageUrl: "assets/check.png",
-                      subtitle: "",
-                      onPressed: () {}),
+                Text(
+                  'Yield',
                 ),
               ],
             ),
-          )
+          ),
+        ),
+      ),
+      body: Center(
+        child: ListView(
+          children: [
+            
+            Container(
+  color: Colors.white,
+  height: 280,
+  child: Padding(
+    padding: const EdgeInsets.fromLTRB(32.0, 32.0, 32.0, 2.0), // Added bottom padding to the Yearly Summary
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Yearly Summary',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10,),
+        Expanded(
+          child: MyBarGraph(
+            monthlySummary: monthlySummary,
+          ),
+        ),
+        SizedBox(height: 8), // Added some space between the bar graph and the year text
+        Text(
+          '2024', 
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black, 
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
+
+             
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeliveryRecord()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                child: BalanceCard(
+                  title: "Total Delivery",
+                  body: "Your current balance is",
+                  subInfoText: " 9.3 Tan",
+                  subInfoTitle: "Up until 13 Apr 2023",
+                  onMoreTap: () {},
+                ),
+              ),
+            ),
+
+
+
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeliveryRecord()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                child: BalanceCard1(
+                  title: "Market Price Today",
+                  body: "",
+                  subInfoText: "RM 3,850",
+                  subInfoTitle: "/Tan",
+                  onMoreTap: () {},
+                ),
+              ),
+            ),  
+
+            SizedBox(height: 12),
+            Padding(
+  padding: const EdgeInsets.fromLTRB(15, 5, 15, 10),
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(20), // Adjust the radius as needed
+    child: Container(
+      decoration: BoxDecoration(
+        color: Color.fromARGB(31, 255, 251, 251),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
         ],
-      )),
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ServicePage()),
+          );
+        },
+        child: Container(
+          alignment: Alignment.center,
+          height: 150,
+          width: 280,
+          color: Colors.white,
+          child: Stack(
+            children: [
+              // Background image
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/service.jfif', 
+                  fit: BoxFit.cover,
+                ),
+              ),
+              
+              Container(
+                color: Color.fromARGB(255, 81, 97, 87).withOpacity(0.5), // Adjust opacity as needed
+                child: Center(
+                  child: Text(
+                    'Services',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  ),
+),
+
+
+          ],
+        ),
+      ),
     );
   }
 }
