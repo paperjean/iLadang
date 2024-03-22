@@ -32,6 +32,7 @@ class _TreeState extends State<Tree> {
       strokeWidth: 2,
       strokeColor: Colors.green,
       fillColor: Colors.green.withOpacity(0.5),
+      //Label
     ),
   };
 
@@ -210,28 +211,83 @@ class _TreeState extends State<Tree> {
     final result = await fetchBlockCoordinates();
     if (result.isEmpty) {
       // Show SnackBar
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('No Blocks Available'),
-          backgroundColor: Colors.red[400],
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('No Blocks Available'),
+            backgroundColor: Colors.red[400],
+          ),
+        );
+      }
     } else {
-      // Process block data
-      setState(() {
-        for (var block in result) {
-          final List<LatLng> cornerCoordinates = block['corner_coordinates'];
-          // Create Polygon with appropriate colors (considering parsing results)
-          existingPolygons.add(Polygon(
-            polygonId: PolygonId(block['block_id']),
-            points: cornerCoordinates,
-            strokeWidth: 2,
-            strokeColor: Color(block['color']),
-            fillColor:
-                Color(block['color']).withOpacity(0.5), // Default or fallback
-          ));
-        }
-      });
+      if (mounted) {
+        // Process block data
+        setState(() {
+          for (var block in result) {
+            final List<LatLng> cornerCoordinates = block['corner_coordinates'];
+            // Create Polygon with appropriate colors (considering parsing results)
+            existingPolygons.add(Polygon(
+              polygonId: PolygonId(block['block_id']),
+              points: cornerCoordinates,
+              strokeWidth: 2,
+              strokeColor: Color(block['color']),
+              fillColor: Color(block['color']).withOpacity(0.5),
+              consumeTapEvents: true,
+              onTap: () {
+                // Show Dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Block ${block['block_label']}'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.check, color: Colors.green.shade400),
+                              Text(' 100% Harvested'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.check, color: Colors.grey.shade400),
+                              Text(' 80% Pruned'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.check, color: Colors.grey.shade400),
+                              Text(' 10% Fertilized'),
+                            ],
+                          )
+                        ],
+                      ),
+                      actions: <Widget>[
+                        Expanded(
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.grey.shade500,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              'Close',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }, // Default or fallback
+            ));
+          }
+        });
+      }
+      ;
     }
     print(result);
   }
