@@ -146,7 +146,7 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
               FloatingActionButton(
                 heroTag: 'location',
                 onPressed: () async {
-                  _dropMarker();
+                  _addMarker();
                 },
                 backgroundColor: Colors.white,
                 child: const Icon(
@@ -187,15 +187,17 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
     setState(() {
       cornerList = [];
 
-      // Clear markers bnased on the length of the markers
-      _markers.removeWhere((key, value) => key != '0');
+      // Clear markers newly created markers
+      _markers.clear();
+      _generateMarkers(!widget.treeList!.isEmpty ? widget.treeList! : []);
+
       // Remove the polygon you just created
       existingPolygons
           .removeWhere((polygon) => polygon.polygonId.value == 'block');
     });
   }
 
-  _dropMarker() async {
+  _addMarker() async {
     // Check if location is available
     if (destLocation == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -209,17 +211,12 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
     // Update the append corner list
     setState(() {
       cornerList.add(destLocation!);
-      // Add Marker with New
-      _markers.addAll({
-        cornerList.length.toString(): Marker(
-          markerId: MarkerId(cornerList.length.toString()),
-          position: destLocation!,
-          icon: BitmapDescriptor.defaultMarker,
-          infoWindow: InfoWindow(
-            title: 'Corner ${cornerList.length}',
-          ),
-        ),
-      });
+      // Add Marker Marker
+      _markers[(_markers.length + 1).toString()] = Marker(
+        markerId: MarkerId((_markers.length + 1).toString()),
+        position: destLocation!,
+        icon: BitmapDescriptor.defaultMarker,
+      );
 
       if (cornerList.length > 3) {
         existingPolygons.add(Polygon(
@@ -275,25 +272,33 @@ class _TreeSegmenterState extends State<TreeSegmenter> {
     if (treeList.isEmpty) {
       return;
     } else {
-      if (mounted) {
-        setState(() async {
-          for (int i = 0; i < treeList.length; i++) {
-            BitmapDescriptor markerIcon = await BitmapDescriptor.fromAssetImage(
-              const ImageConfiguration(
-                size: Size(10, 10),
-              ),
-              'assets/tree_marker_green.png',
-            );
-            _markers[i.toString()] = Marker(
-                markerId: MarkerId(i.toString()),
-                position:
-                    LatLng(treeList[i]['latitude'], treeList[i]['longitude']),
-                icon: markerIcon,
-                infoWindow: InfoWindow(
-                    title:
-                        'Tree ${treeList[i]['block']}${treeList[i]['tree_number']}'));
-          }
-        });
+      try {
+        Map<String, Marker> newMarkers = {}; // Initialize newMarkers here
+        for (int i = 0; i < treeList.length; i++) {
+          BitmapDescriptor markerIcon = await BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(
+              size: Size(10, 10),
+            ),
+            'assets/tree_marker_green.png',
+          );
+          newMarkers[i.toString()] = Marker(
+            markerId: MarkerId(i.toString()),
+            position: LatLng(treeList[i]['latitude'], treeList[i]['longitude']),
+            icon: markerIcon,
+            infoWindow: InfoWindow(
+              title:
+                  'Tree ${treeList[i]['block']}${treeList[i]['tree_number']}',
+            ),
+          );
+        }
+        if (mounted) {
+          setState(() {
+            _markers.clear(); // Clear existing markers
+            _markers.addAll(newMarkers); // Add newly generated markers
+          });
+        }
+      } catch (e) {
+        print("Error generating markers: $e");
       }
     }
   }

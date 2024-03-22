@@ -33,85 +33,95 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.light().copyWith(
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Color.fromRGBO(248, 249, 250, 1),
-            titleTextStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 23,
-              fontWeight: FontWeight.w600,
-            ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromRGBO(248, 249, 250, 1),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
           ),
-          scaffoldBackgroundColor: const Color.fromRGBO(247, 247, 247, 1),
-          primaryColor: const Color.fromRGBO(43, 128, 90, 1),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              foregroundColor: const Color.fromRGBO(43, 128, 90, 1),
-              backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
-            ),
-          ),
-          textTheme: TextTheme(
-            displayLarge: const TextStyle(),
-            titleLarge: GoogleFonts.manrope(
-              color: Colors.black,
-              fontSize: 25,
-              // fontWeight: FontWeight.,
-            ),
-            titleMedium: GoogleFonts.manrope(
-              color: Colors.black,
-            ),
-            titleSmall: GoogleFonts.manrope(
-              color: Colors.black,
-            ),
-            bodyLarge: GoogleFonts.manrope(
-              color: Colors.black,
-            ),
-            bodyMedium: GoogleFonts.manrope(
-              color: Colors.black,
-            ),
-            bodySmall: GoogleFonts.manrope(
-              color: Colors.black,
-            ),
-            displaySmall: GoogleFonts.manrope(
-              color: Colors.black,
-            ),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
-            ),
-          ),
-          inputDecorationTheme: const InputDecorationTheme(
-            floatingLabelStyle:
-                TextStyle(color: Color.fromRGBO(43, 128, 90, 1)),
-            filled: true,
-            fillColor: Colors.white,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromRGBO(43, 128, 90, 1)),
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.2)),
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-          ),
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Color.fromRGBO(43, 128, 90, 1),
-          ),
-          progressIndicatorTheme:
-              ProgressIndicatorThemeData(color: Colors.green.shade100),
-          dialogTheme: DialogTheme(
+        ),
+        scaffoldBackgroundColor: const Color.fromRGBO(247, 247, 247, 1),
+        primaryColor: const Color.fromRGBO(43, 128, 90, 1),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: const Color.fromRGBO(43, 128, 90, 1),
+            backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          floatingActionButtonTheme:
-             const FloatingActionButtonThemeData(backgroundColor: Colors.white, 
-              )),
+        ),
+        textTheme: TextTheme(
+          displayLarge: const TextStyle(),
+          titleLarge: GoogleFonts.manrope(
+            color: Colors.black,
+            fontSize: 25,
+            // fontWeight: FontWeight.,
+          ),
+          titleMedium: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          titleSmall: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          bodyLarge: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          bodyMedium: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          bodySmall: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+          displaySmall: GoogleFonts.manrope(
+            color: Colors.black,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: const Color.fromRGBO(43, 128, 90, 1),
+          ),
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          floatingLabelStyle: TextStyle(color: Color.fromRGBO(43, 128, 90, 1)),
+          filled: true,
+          fillColor: Colors.white,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromRGBO(43, 128, 90, 1)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.2)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
+        ),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color.fromRGBO(43, 128, 90, 1),
+        ),
+        progressIndicatorTheme:
+            ProgressIndicatorThemeData(color: Colors.green.shade100),
+        dialogTheme: DialogTheme(
+          surfaceTintColor: Colors.white,
+          titleTextStyle: const TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.white,
+        ),
+      ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (_) => const SplashPage(),
